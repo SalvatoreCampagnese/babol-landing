@@ -1,0 +1,12 @@
+[
+    {
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.babol.app",
+        "sha256_cert_fingerprints": [
+          "FF:9C:E0:98:C1:D0:7D:DC:78:98:3B:39:E8:A7:47:E9:64:A2:EC:41"
+        ]
+      }
+    }
+  ]
