@@ -48,7 +48,7 @@ export default function Home() {
           height={60}
         />
         <p className="text-[28px] sm:text-[38px] ">
-          <strong>Subscribe now</strong><br />to get updated on Babol
+          <strong>Subscribe now</strong><br />to get updates on Babol
         </p>
         <input className="py-2 mt-10 text-left bg-transparent z-10 w-full sm:w-4/6 border-b h-[60px] text-3xl text-white focus:outline-none" placeholder="Email..." type='text'
           value={email} onChange={(e) => setEmail(e.target.value)} />
