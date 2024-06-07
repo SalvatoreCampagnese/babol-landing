@@ -61,30 +61,33 @@ export default function Home() {
       <div className="box overflow-visible w-screen">
         <div className="circle"></div>
       </div>
-      <main className="flex min-h-screen flex-col bg-[url('/bg.svg')] bg-cover bg-no-repeat h-full sm:justify-center justify-end sm:px-[150px] sm:overflow-hidden">
-        <div className="flex flex-row w-full p-[16px] sm:px-[42px] sm:mt-4">
+      <main className="flex min-h-screen flex-col bg-[url('/bg.svg')] bg-cover bg-no-repeat h-[100vh] md:justify-center justify-end
+        sm:px-[0px]
+        md:px-[10px]
+        md:overflow-hidden">
+        <div className="flex flex-row w-full p-[16px] md:px-[42px] md:mt-4">
           <Image
             src="/logo.svg"
             alt="Babol Logo"
-            className="sm:mb-12 cursor-pointer"
+            className="md:mb-12 cursor-pointer"
             width={108}
             height={25}
           />
-          <div className="sm:hidden justify-end flex w-full">
+          <div className="md:hidden justify-end flex w-full">
             <div className="flex flex-row gap-[16px]">
               <Link href={"https://instagram.com/aa"}><Image src="/instagram.svg" alt="Linkedin" width={24} height={24} className="cursor-pointer" /></Link>
               <Link href={"https://linkedin.com/aa"}><Image src="/linkedin.svg" alt="Linkedin" width={24} height={24} /></Link>
             </div>
           </div>
         </div>
-        <div className="flex flex-col sm:flex-row mt-6 sm:mt-0 sm:h-full">
-          <div className="relative flex flex-col  before:rounded-full z-10 w-full sm:w-3/6 justify-center items-center sm:items-start sm:pl-[42px] px-[10px] sm:px-[0px]">
-            <p className="text-[34px] sm:text-[56px] text-center sm:text-left" style={{
+        <div className="flex flex-col md:flex-row mt-6 md:mt-0 md:h-full gap-20 md:gap-10 sm:gap-2">
+          <div className="relative flex flex-col  before:rounded-full z-10 w-full md:w-3/6 justify-center items-center md:items-start md:pl-[42px] px-[10px] md:px-[0px]">
+            <p className="text-[34px] md:text-[56px] text-center md:text-left" style={{
               lineHeight: '1.2'
             }}>
               The new way to<br />manage your event.<br /><strong className="text-[#A08CF3]" style={{ fontFamily: 'satoshiBold' }}>All in one place.</strong>
             </p>
-            <p className="mt-[56px] mb-[24px] text-white text-[18px] text-center sm:text-left">
+            <p className="mt-[56px] mb-[24px] text-white text-[18px] text-center md:text-left">
               Join the beta and transform event management today!
             </p>
             <div className="flex flex-row bg-[#FFFFFF12] rounded-[16px] pl-[16px] py-[4px] pr-[4px] gap-[4px]">
@@ -96,11 +99,11 @@ export default function Home() {
                 onChange={(e) => setEmail(e.target.value)} />
               <button className="p-[16px] rounded-[12px] text-white z-10 bg-[#101011] h-[48px] text-[17px] font-bold justify-center items-center flex whitespace-nowrap" onClick={() => { register() }}>Join beta</button>
             </div>
-            {emailErr && <p className="text-red-400 text-[14px] sm:text-[16px]">An error occurred! Please verify your email or try again.</p>}
-            <p className="mt-2 text-[12px] sm:text-[16px]">
+            {emailErr && <p className="text-red-400 text-[14px] md:text-[16px]">An error occurred! Please verify your email or try again.</p>}
+            <p className="mt-2 text-[12px] md:text-[16px]">
               By joining the beta program you accept our <Link className="font-bold text-[#A08CF3]" href={"https://www.iubenda.com/privacy-policy/77576132"}>Terms & Conditions</Link>
             </p>
-            <div className="absolute bottom-0 pb-[42px] flex-row justify-center gap-[16px] hidden sm:flex">
+            <div className="absolute bottom-0 pb-[42px] flex-row justify-center gap-[16px] hidden md:flex">
               <span>Follow us</span>
               <div className="flex flex-row gap-[16px]">
                 <Link href={"https://instagram.com/aa"}><Image src="/instagram.svg" alt="Linkedin" width={24} height={24} className="cursor-pointer" /></Link>
@@ -109,7 +112,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="w-full sm:w-3/6 relative flex sm:justify-end sm:items-end items-center justify-center h-full sm:mt-[15px]">
+          <div className="w-full md:w-3/6 relative flex md:justify-end md:items-end items-center justify-center h-full md:mt-[15px]">
             <LottieIphone />
           </div>
         </div>
