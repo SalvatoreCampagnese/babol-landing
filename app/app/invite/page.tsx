@@ -6,12 +6,12 @@ function InvitePage() {
             <p className="text-[34px] sm:text-[56px] text-center sm:text-left" style={{
                 lineHeight: '1.2'
             }}>
-                Do you already have Babol? <a className="text-[#A08CF3]" style={{ fontFamily: 'satoshiBold' }} href={window.location.href}>Click Here</a>
+                Do you already have Babol? <a className="text-[#A08CF3]" style={{ fontFamily: 'satoshiBold' }} href={window?.location?.href}>Click Here</a>
             </p>
             <p className="text-[20px] sm:text-[24px] text-center sm:text-left" style={{
                 lineHeight: '1.2'
             }}>
-                or download it <a className="text-[#A08CF3]" style={{ fontFamily: 'satoshiBold' }} href={window.location.href}>HERE</a>
+                or download it <a className="text-[#A08CF3]" style={{ fontFamily: 'satoshiBold' }} href={window?.location?.href}>HERE</a>
             </p>
         </div>
     );
