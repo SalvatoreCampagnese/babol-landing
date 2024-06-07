@@ -1,7 +1,9 @@
 "use client"
 import Image from "next/image";
 import { createClient } from '@supabase/supabase-js'
-import React from "react";
+import React, { useEffect } from "react";
+import LottieIphone from "./components/LottiePlayer";
+import Link from "next/link";
 
 
 export default function Home() {
@@ -9,13 +11,8 @@ export default function Home() {
   const [email, setEmail] = React.useState('');
   const [registered, setRegistered] = React.useState(false);
   const [emailErr, setEmailErr] = React.useState(false);
-  const [errorTerm, setErrorTerm] = React.useState(false);
   const [term, setTerm] = React.useState(false);
   const register = async () => {
-    if(!term){
-      setErrorTerm(true);
-      return;
-    }
     if (!email.includes('@') || !email.includes('.') || !email) {
       setEmailErr(true)
       return
@@ -28,36 +25,96 @@ export default function Home() {
       alert('An error occurred')
     } else {
       setEmail('');
-      setErrorTerm(false);
       setRegistered(true);
     }
   }
 
-  return (
-    <main className="flex min-h-screen flex-row bg-[url('/bg.svg')] bg-[100%] bg-no-repeat h-full">
-      <div className="min-h-screen w-3/6 sm:block relative hidden">
-        <div className="bg-[url('/cell.png')] min-h-full sm:bg-center bg-cover" >&nbsp;</div>
-      </div>
-      <div className="relative flex flex-col  before:rounded-full z-10 w-full sm:w-3/6 justify-center items-start px-[24px] sm:px-0">
+  useEffect(() => {
+    const handleMouseMove = (e: any) => {
+      const circle: any = document.querySelector('.circle');
+      if (circle) {
+        const x = e.clientX;
+        const y = e.clientY;
+        const newPosX = x - 60;
+        const newPosY = y - 60;
+        circle.style.transform = `translate3d(${newPosX}px, ${newPosY}px, 0px)`;
+      }
+    };
 
-        <Image
-          src="/logo.svg"
-          alt="Babol Logo"
-          className="mb-12"
-          width={280}
-          height={60}
-        />
-        <p className="text-[28px] sm:text-[38px] ">
-          <strong>Subscribe now</strong><br />to get updates on Babol
-        </p>
-        <input className="py-2 mt-10 text-left bg-transparent z-10 w-full sm:w-4/6 border-b h-[60px] text-3xl text-white focus:outline-none" placeholder="Email..." type='text'
-          value={email} onChange={(e) => setEmail(e.target.value)} />
-        {emailErr && <p className="text-red-500">Email not valid!</p>}
-        <div className="flex flex-row justify-center items-center mt-4 gap-2">
-          <input type="checkbox" className="rounded-full h-[20px] w-[20px] bg-black" checked={term} onChange={(e) => setTerm(e.target.checked)}/> <span className={`${errorTerm ? 'text-red-600' :'text-white'}`}>Accept to receive any news about Babol!</span>
-        </div>
-        {registered ? <p className="text-white text-[25px] mt-8">You have been registered!</p> : <button className="px-4 py-2 text-white rounded-lg z-10 w-full sm:w-4/6 bg-[#5831F5] mt-10 h-[70px] text-[22px] font-bold" onClick={() => { register() }}>Let me know!</button>}
+    const box = document.querySelector('.box');
+    const body = document.querySelector('body')!;
+    if (box && body) {
+      body.addEventListener('mousemove', handleMouseMove);
+      box.addEventListener('click', handleMouseMove);
+    }
+
+    // Cleanup event listeners on unmount
+    return () => {
+      if (box) {
+        body.removeEventListener('mousemove', handleMouseMove);
+        box.removeEventListener('click', handleMouseMove);
+      }
+    };
+  }, []);
+  return (
+    <>
+      <div className="box overflow-visible w-screen">
+        <div className="circle"></div>
       </div>
-    </main>
+      <main className="flex min-h-screen flex-col bg-[url('/bg.svg')] bg-cover bg-no-repeat h-full sm:justify-center justify-end sm:px-[150px] sm:overflow-hidden">
+        <div className="flex flex-row w-full p-[16px] sm:px-[42px] sm:mt-4">
+          <Image
+            src="/logo.svg"
+            alt="Babol Logo"
+            className="sm:mb-12 cursor-pointer"
+            width={108}
+            height={25}
+          />
+          <div className="sm:hidden justify-end flex w-full">
+            <div className="flex flex-row gap-[16px]">
+              <Link href={"https://instagram.com/aa"}><Image src="/instagram.svg" alt="Linkedin" width={24} height={24} className="cursor-pointer" /></Link>
+              <Link href={"https://linkedin.com/aa"}><Image src="/linkedin.svg" alt="Linkedin" width={24} height={24} /></Link>
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-col sm:flex-row mt-6 sm:mt-0 sm:h-full">
+          <div className="relative flex flex-col  before:rounded-full z-10 w-full sm:w-3/6 justify-center items-center sm:items-start sm:pl-[42px] px-[10px] sm:px-[0px]">
+            <p className="text-[34px] sm:text-[56px] text-center sm:text-left" style={{
+              lineHeight: '1.2'
+            }}>
+              The new way to<br />manage your event.<br /><strong className="text-[#A08CF3]" style={{ fontFamily: 'satoshiBold' }}>All in one place.</strong>
+            </p>
+            <p className="mt-[56px] mb-[24px] text-white text-[18px] text-center sm:text-left">
+              Join the beta and transform event management today!
+            </p>
+            <div className="flex flex-row bg-[#FFFFFF12] rounded-[16px] pl-[16px] py-[4px] pr-[4px] gap-[4px]">
+              <input
+                className="py-2 text-left bg-transparent z-10 flex h-[48px] w-[231px] text-[17px] text-white focus:outline-none placeholder-white"
+                placeholder="Enter your email"
+                type='text'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)} />
+              <button className="p-[16px] rounded-[12px] text-white z-10 bg-[#101011] h-[48px] text-[17px] font-bold justify-center items-center flex whitespace-nowrap" onClick={() => { register() }}>Join beta</button>
+            </div>
+            {emailErr && <p className="text-red-400 text-[14px] sm:text-[16px]">An error occurred! Please verify your email or try again.</p>}
+            <p className="mt-2 text-[12px] sm:text-[16px]">
+              By joining the beta program you accept our <Link className="font-bold text-[#A08CF3]" href={"https://www.iubenda.com/privacy-policy/77576132"}>Terms & Conditions</Link>
+            </p>
+            <div className="absolute bottom-0 pb-[42px] flex-row justify-center gap-[16px] hidden sm:flex">
+              <span>Follow us</span>
+              <div className="flex flex-row gap-[16px]">
+                <Link href={"https://instagram.com/aa"}><Image src="/instagram.svg" alt="Linkedin" width={24} height={24} className="cursor-pointer" /></Link>
+                <Link href={"https://linkedin.com/aa"}><Image src="/linkedin.svg" alt="Linkedin" width={24} height={24} /></Link>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-full sm:w-3/6 relative flex sm:justify-end sm:items-end items-center justify-center h-full sm:mt-[15px]">
+            <LottieIphone />
+          </div>
+        </div>
+      </main>
+    </>
+
   );
 }
