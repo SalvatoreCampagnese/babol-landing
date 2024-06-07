@@ -10,14 +10,14 @@
 }
 @font-face {
   font-family: satoshiMedium;
-  src: url('/fonts/satoshiMedium.ttf') format('truetype');
+  src: url('/fonts/SatoshiMedium.ttf') format('truetype');
   font-weight: 480;
   font-style: normal;
 }
 
 @font-face {
   font-family: satoshiRegular;
-  src: url('/fonts/satoshiRegular.ttf') format('truetype');
+  src: url('/fonts/SatoshiRegular.ttf') format('truetype');
   font-weight: 300;
   font-style: normal;
 }
