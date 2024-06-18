@@ -68,7 +68,7 @@ export default function Home() {
       <main className="flex min-h-screen flex-col bg-[url('/bg-mobile.svg')] sm:bg-[url('/bg.svg')] bg-cover bg-no-repeat md:h-[100vh] md:justify-center justify-end
         sm:px-[0px]
         md:px-[10px]
-        2xl:px-[340px]
+        2xl:px-[300px]
         md:overflow-hidden">
         <div className="flex flex-row w-full p-[16px] md:px-[42px] md:mt-4">
           <Image
