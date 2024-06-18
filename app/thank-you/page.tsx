@@ -10,8 +10,7 @@ export default function ThankYou() {
         <div className="circle"></div>
       </div>
       <main className="flex min-h-screen flex-col bg-[url('/bg-mobile.svg')] sm:bg-[url('/bg2.svg')] bg-cover bg-no-repeat h-[100vh] justify-center
-        sm:px-[0px]
-        md:px-[10px]
+        px-[10px]
         md:overflow-hidden">
         <div className="flex flex-row w-full p-[16px] md:px-[42px] md:mt-4 absolute top-0">
           <Image
