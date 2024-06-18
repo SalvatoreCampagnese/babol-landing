@@ -10,9 +10,14 @@ const LottieIphone = () => {
     // I calc ratio width and height based on the screen size and the initial value of 718x788
     height = window.innerWidth * (788 / 718);
     width = window.innerWidth;
-    if (window.innerWidth > 768) {
-      height = 788;
-      width = 718;
+    
+
+    if (window.innerWidth > 1950) {
+      width = 800;
+      height = width * 1.0974;
+    } else if (window.innerWidth > 768) {
+      width = 600;
+      height = width * 1.0974;
     }
 
     setWidth(width-10);
