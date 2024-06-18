@@ -4,17 +4,19 @@ import { createClient } from '@supabase/supabase-js'
 import React, { useEffect } from "react";
 import LottieIphone from "./components/LottiePlayer";
 import Link from "next/link";
+import LottieButton from "./components/LottieButton";
 
 
 export default function Home() {
-  const supabase = createClient('https://uofooaquvefawwmqfren.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVvZm9vYXF1dmVmYXd3bXFmcmVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTYzMzI1MzIsImV4cCI6MjAxMTkwODUzMn0.iwFsx5tnVUUUIpxlH2p3hWxHsgqG9oXxilFg5h24RlI')
+  const supabase = createClient('https://uofooaquvefawwmqfren.supabase.co', process.env.NEXT_PUBLIC_SUPABASE || "")
   const [email, setEmail] = React.useState('');
-  const [registered, setRegistered] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
   const [emailErr, setEmailErr] = React.useState(false);
-  const [term, setTerm] = React.useState(false);
   const register = async () => {
+    setIsLoading(true)
     if (!email.includes('@') || !email.includes('.') || !email) {
       setEmailErr(true)
+      setIsLoading(false)
       return
     }
     setEmailErr(false)
@@ -23,10 +25,12 @@ export default function Home() {
       .insert([{ email }])
     if (error) {
       alert('An error occurred')
+      setIsLoading(false)
     } else {
       setEmail('');
-      setRegistered(true);
+      window.location.href = '/thank-you'
     }
+    setIsLoading(false)
   }
 
   useEffect(() => {
@@ -58,12 +62,13 @@ export default function Home() {
   }, []);
   return (
     <>
-      <div className="box overflow-visible w-screen">
+      <div className="box overflow-visible w-full">
         <div className="circle"></div>
       </div>
-      <main className="flex min-h-screen flex-col bg-[url('/bg.svg')] bg-cover bg-no-repeat h-[100vh] md:justify-center justify-end
+      <main className="flex min-h-screen flex-col bg-[url('/bg.svg')] bg-cover bg-no-repeat md:h-[100vh] md:justify-center justify-end
         sm:px-[0px]
         md:px-[10px]
+        2xl:px-[320px]
         md:overflow-hidden">
         <div className="flex flex-row w-full p-[16px] md:px-[42px] md:mt-4">
           <Image
@@ -75,7 +80,7 @@ export default function Home() {
           />
           <div className="md:hidden justify-end flex w-full">
             <div className="flex flex-row gap-[16px]">
-              <Link href={"https://instagram.com/aa"}><Image src="/instagram.svg" alt="Linkedin" width={24} height={24} className="cursor-pointer" /></Link>
+              <Link href={"https://www.instagram.com/babol.app/"}><Image src="/instagram.svg" alt="Linkedin" width={24} height={24} className="cursor-pointer" /></Link>
               <Link href={"https://linkedin.com/aa"}><Image src="/linkedin.svg" alt="Linkedin" width={24} height={24} /></Link>
             </div>
           </div>
@@ -90,23 +95,23 @@ export default function Home() {
             <p className="mt-[56px] mb-[24px] text-white text-[18px] text-center md:text-left">
               Join the beta and transform event management today!
             </p>
-            <div className="flex flex-row bg-[#FFFFFF12] rounded-[16px] pl-[16px] py-[4px] pr-[4px] gap-[4px]">
+            <div className="flex flex-row bg-[#FFFFFF1F] rounded-[16px] pl-[16px] py-[4px] pr-[4px] gap-[4px] border border-white">
               <input
-                className="py-2 text-left bg-transparent z-10 flex h-[48px] w-[231px] text-[17px] text-white focus:outline-none placeholder-white"
+                className="py-2 text-left bg-transparent z-10 flex h-[48px] w-[231px] text-[17px] text-white focus:outline-none placeholder-white "
                 placeholder="Enter your email"
                 type='text'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)} />
-              <button className="p-[16px] rounded-[12px] text-white z-10 bg-[#101011] h-[48px] text-[17px] font-bold justify-center items-center flex whitespace-nowrap" onClick={() => { register() }}>Join beta</button>
+              <button className="p-[16px] rounded-[12px] text-white z-10 bg-[#101011] h-[48px] text-[17px] font-bold justify-center items-center flex whitespace-nowrap" onClick={() => { register() }}>{!isLoading ? "Join beta" : <LottieButton />}</button>
             </div>
             {emailErr && <p className="text-red-400 text-[14px] md:text-[16px]">An error occurred! Please verify your email or try again.</p>}
             <p className="mt-2 text-[12px] md:text-[16px]">
-              By joining the beta program you accept our <Link className="font-bold text-[#A08CF3]" href={"https://www.iubenda.com/privacy-policy/77576132"}>Terms & Conditions</Link>
+              By joining the beta program you accept our <Link className="font-bold text-[#A08CF3]" href={"/terms_conditions.pdf"}>Terms & Conditions</Link>
             </p>
             <div className="absolute bottom-0 pb-[42px] flex-row justify-center gap-[16px] hidden md:flex">
               <span>Follow us</span>
               <div className="flex flex-row gap-[16px]">
-                <Link href={"https://instagram.com/aa"}><Image src="/instagram.svg" alt="Linkedin" width={24} height={24} className="cursor-pointer" /></Link>
+                <Link href={"https://www.instagram.com/babol.app/"}><Image src="/instagram.svg" alt="Linkedin" width={24} height={24} className="cursor-pointer" /></Link>
                 <Link href={"https://linkedin.com/aa"}><Image src="/linkedin.svg" alt="Linkedin" width={24} height={24} /></Link>
               </div>
             </div>
