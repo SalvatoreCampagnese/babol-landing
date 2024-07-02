@@ -36,7 +36,7 @@ export default function LinkPage() {
         <p className="text-[34px] md:text-[40px] text-center font-bold text-shadow" style={{
           lineHeight: '1.2'
         }}>We are redirecting you! <span className="text-[#A08CF3]">Please wait...</span></p>
-      </div> : device !== "ios" && device !== "android" ? <div className="text-[20px] md:text-[26px] text-center font-bold text-shadow" style={{
+      </div> : device !== "iOS" && device !== "android" ? <div className="text-[20px] md:text-[26px] text-center font-bold text-shadow" style={{
         lineHeight: '1.2'
       }}>
 
