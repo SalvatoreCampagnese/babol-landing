@@ -9,11 +9,6 @@ export default function LinkPage() {
 
   useEffect(() => {
     const handleDeviceDetection = () => {
-      const userAgent = navigator.userAgent;
-      if (/android/i.test(userAgent)) {
-        return "Android";
-      }
-
       // iOS detection from: http://stackoverflow.com/a/9039885/177710
       if (/iPad|iPhone|iPod/.test(userAgent)) {
         return "iOS";
@@ -36,11 +31,11 @@ export default function LinkPage() {
         px-[10px]
         md:overflow-hidden
         text-center">
-      {device !== 'unknown' ? <div>
+      {device === '' ? <div>
         <p className="text-[34px] md:text-[40px] text-center font-bold text-shadow" style={{
           lineHeight: '1.2'
         }}>We are redirecting you! <span className="text-[#A08CF3]">Please wait...</span></p>
-      </div> : <div className="text-[20px] md:text-[26px] text-center font-bold text-shadow" style={{
+      </div> : device !== "ios" && device !== "android" ? <div className="text-[20px] md:text-[26px] text-center font-bold text-shadow" style={{
         lineHeight: '1.2'
       }}>
 
@@ -49,7 +44,15 @@ export default function LinkPage() {
         We are still working on the Android application, but if you have an <span className="text-[#A08CF3] font-bold">iPhone</span>, what are you waiting for?<br /><br /><br />
 
         <Link href={"https://apps.apple.com/it/app/babol/id6478817773"}><Image src="/apple.png" className="inline" alt="Apple Logo" width={240} height={70} /></Link> <br /><br />
-      </div>}
+      </div> : <div className="text-[20px] md:text-[26px] text-center font-bold text-shadow" style={{
+        lineHeight: '1.2'
+      }}>
+
+        If the redirect does not work and you got an <span className="text-[#A08CF3] font-bold">iPhone</span>, please click the button above!<br /><br />
+        <Link href={"https://apps.apple.com/it/app/babol/id6478817773"}><Image src="/apple.png" className="inline" alt="Apple Logo" width={240} height={70} /></Link> <br /><br />
+        We are still working on the Android application, stay tuned!<br /><br />
+      </div>
+      }
     </div>
   );
 }
