@@ -36,7 +36,7 @@ export default function LinkPage() {
         px-[10px]
         md:overflow-hidden
         text-center">
-      {device === '' ? <div>
+      {device !== 'unknown' ? <div>
         <p className="text-[34px] md:text-[40px] text-center font-bold text-shadow" style={{
           lineHeight: '1.2'
         }}>We are redirecting you! <span className="text-[#A08CF3]">Please wait...</span></p>
