@@ -18,8 +18,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={"overflow-hidden"}>{children}</body>
         <IubendaScripts />
+      <body className={"overflow-hidden"}>{children}</body>
     </html>
   );
 }
