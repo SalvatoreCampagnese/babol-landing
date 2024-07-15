@@ -70,3 +70,6 @@ body {
   background: url('/bg-mobile.svg') !important;
   background-size: cover !important;
 }
+.backdrop-filter-blur{
+  backdrop-filter: blur(20px) !important;
+}
