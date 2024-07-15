@@ -68,7 +68,7 @@ export default function Home() {
       <div className="box overflow-visible w-full">
         <div className="circle"></div>
       </div>
-      <main className="flex min-h-screen flex-col bg-[url('/bg-mobile.svg')] sm:bg-[url('/bg.svg')] bg-cover bg-no-repeat md:h-[100vh] md:justify-center justify-end
+      <main className="flex min-h-screen flex-col bg-[url('./bg-mobile.svg')] sm:bg-[url('./bg.svg')] bg-cover bg-no-repeat md:h-[100vh] md:justify-center justify-end
         sm:px-[0px]
         md:px-[10px]
         2xl:px-[300px]
@@ -103,7 +103,7 @@ export default function Home() {
             </div>
             {emailErr && <p className="text-red-400 text-[14px] md:text-[16px]">An error occurred! Please verify your email or try again.</p>}
             <p className="mt-2 text-[12px] md:text-[16px]">
-              By joining the beta program you accept our <Link className="font-bold text-[#A08CF3]" href={"/terms_conditions.pdf"}>Terms & Conditions</Link>
+              By joining the beta program you accept our <Link className="font-bold text-[#A08CF3]" href={"./terms_conditions.pdf"}>Terms & Conditions</Link>
             </p>
             <div className="absolute bottom-0 pb-[42px] flex-row justify-center gap-[16px] hidden md:flex">
               <span>Follow us</span>
