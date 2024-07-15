@@ -72,6 +72,7 @@ export default function Home() {
         sm:px-[0px]
         md:px-[10px]
         2xl:px-[300px]
+        bg-mobile
         ">
         <div className="flex flex-row w-full p-[16px] md:px-[42px] md:mt-4">
           <Image
