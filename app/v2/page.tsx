@@ -68,7 +68,7 @@ export default function Home() {
       <div className="box overflow-visible w-full">
         <div className="circle"></div>
       </div>
-      <main className="flex min-h-screen flex-col bg-[url('https://svgur.com/i/18Eh.svg') !important] sm:bg-[url('/bg.svg')] bg-cover bg-no-repeat md:h-[100vh] md:justify-center justify-end
+      <main className="flex min-h-screen flex-col bg-cover bg-no-repeat md:h-[100vh] md:justify-center justify-end
         sm:px-[0px]
         md:px-[10px]
         2xl:px-[300px]
