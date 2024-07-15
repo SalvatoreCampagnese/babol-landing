@@ -35,7 +35,7 @@ export const LottieBlockText = () => {
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [imageChangeThresholds]);
+    }, []);
 
     return (
         <div className="relative p-4">
