@@ -41,7 +41,7 @@ export const LottieBlockText = () => {
         <div className="relative p-4">
             <div className="sticky top-[-8px] w-full h-[358px] flex items-center justify-center z-10 ">
                 {images.map((src, index) => (
-                    <div key={index} style={{ opacity: index === visibleImage ? 1 : 0, position: 'absolute', transition: 'opacity 0s', backdropFilter: 'blur(20px)', borderRadius: 15 }}>
+                    <div key={index}  style={{ opacity: index === visibleImage ? 1 : 0, position: 'absolute', transition: 'opacity 0s', backdropFilter: 'blur(20px) !important', borderRadius: 15 }}>
                         <Image src={src} height={358} width={358} alt={`Image ${index}`} />
                     </div>
                 ))}
