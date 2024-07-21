@@ -24,7 +24,7 @@
 
 * {
   font-family: satoshiRegular;
-  color: rgb(var(--foreground-rgb));
+  color: white;
 }
 
 body {
