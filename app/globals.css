@@ -24,10 +24,8 @@
 
 * {
   font-family: satoshiRegular;
-}
-
-:root {
-  
+  color: rgb(var(--foreground-rgb));
+  background-color: red;
 }
 
 body {
