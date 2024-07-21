@@ -26,7 +26,7 @@ export default function RootLayout({
       <Script src="/animation.js" />
       </head>
         <IubendaScripts />
-      <body>{children}</body>
+      <body className="bg-mobile">{children}</body>
     </html>
   );
 }
