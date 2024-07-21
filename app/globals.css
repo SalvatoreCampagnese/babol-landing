@@ -30,15 +30,26 @@
 body {
   color: rgb(var(--foreground-rgb));
   
-  background-image: url('/bg-mobile.svg') center center !important ;
-  background-size: cover !important;
-  background-color: red;
-  background-attachment:scroll;
+  background: url('/bg-mobile.svg') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
+  background-size: cover;
 }
-
+body:after{
+  content:"";
+  position:fixed; /* stretch a fixed position to the whole screen */
+  top:0;
+  height:100vh; /* fix for mobile browser address bar appearing disappearing */
+  left:0;
+  right:0;
+  z-index:-1; /* needed to keep in the background */
+  background: url("/bg-mobile.svg") center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -73,4 +84,16 @@ body {
 .backdrop-filter-blur{
   backdrop-filter: blur(20px) !important;
   -webkit-backdrop-filter: blur(20px) !important;
+}
+
+@supports ( -webkit-touch-callout : none) {
+    body {
+      background-attachment:scroll
+    }
+}
+  
+@supports not ( -webkit-touch-callout : none) {
+  body {
+    background-attachment: fixed;
+  }
 }
