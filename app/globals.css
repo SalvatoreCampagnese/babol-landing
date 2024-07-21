@@ -64,9 +64,9 @@ body {
   transition:transform 0.2s cubic-bezier(.02,1.23,.79,1.08);
 }
 .bg-mobile{
-  background-image: url('/bg-mobile.svg') !important;
+  /* background-image: url('/bg-mobile.svg') !important;
   background: url('/bg-mobile.svg') !important;
-  background-size: cover !important;
+  background-size: cover !important; */
 }
 .backdrop-filter-blur{
   backdrop-filter: blur(20px) !important;
