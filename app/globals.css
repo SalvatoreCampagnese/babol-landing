@@ -70,4 +70,5 @@ body {
 }
 .backdrop-filter-blur{
   backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
 }
