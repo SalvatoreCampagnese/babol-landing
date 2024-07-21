@@ -34,6 +34,7 @@ body {
   background: url('/bg-mobile.svg') !important;
   background-size: cover !important;
   background-color: red;
+  background-attachment:fixed;
 }
 
 @layer utilities {
