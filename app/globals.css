@@ -25,7 +25,6 @@
 * {
   font-family: satoshiRegular;
   color: rgb(var(--foreground-rgb));
-  background-color: red;
 }
 
 body {
@@ -34,6 +33,7 @@ body {
   background-image: url('/bg-mobile.svg') !important;
   background: url('/bg-mobile.svg') !important;
   background-size: cover !important;
+  background-color: red;
 }
 
 @layer utilities {
