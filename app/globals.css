@@ -32,7 +32,7 @@ body {
   
   background-image: url('/bg-mobile.svg') !important;
   background: url('/bg-mobile.svg') !important;
-  background-size: cover !important;
+  background-size: contain !important;
   background-color: red;
   background-attachment:fixed;
 }
