@@ -30,11 +30,13 @@
 body {
   color: rgb(var(--foreground-rgb));
   
-  background-image: url('/bg-mobile.svg') !important;
-  background: url('/bg-mobile.svg') !important;
-  background-size: contain !important;
+  background-image: url('/bg-mobile.svg') center center !important ;
+  background-size: cover !important;
   background-color: red;
-  background-attachment:fixed;
+  background-attachment:scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
 }
 
 @layer utilities {
