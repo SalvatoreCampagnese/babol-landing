@@ -55,7 +55,7 @@ export default function Home() {
         <div className="circle"></div>
       </div>
       <main className="flex min-h-screen flex-col md:justify-center justify-end bg-mobile
-        px-[40px] pt-[40px]">
+       px-[10px] pt-[10px] md:px-[40px] md:pt-[40px]">
         <div className="flex flex-row w-full">
           <Image
             src="/logo.svg"

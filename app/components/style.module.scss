@@ -128,3 +128,12 @@
     }
   
   }
+
+  @media screen and (orientation: portrait) {
+    .cardContainer{
+      .card{
+        padding: 25px;
+      }
+    }
+    
+  }

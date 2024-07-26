@@ -10,14 +10,14 @@ export default function StepsBlock() {
     <main className={styles.main}>
         {projects.map((project, i) => (
             <Card key={`p_${i}`} i={i}>
-                <div className='flex flex-row h-full'>
-                    <div className='flex flex-col w-3/6 justify-between'>
+                <div className='flex flex-col md:flex-row h-full gap-6 justify-between'>
+                    <div className='flex flex-col md:w-3/6 w-full justify-between gap-8'>
                         <div dangerouslySetInnerHTML={{__html: project.title}}></div>
                         <div dangerouslySetInnerHTML={{
                             __html: project.description
                         }}></div>
                     </div>
-                    <div className='flex justify-center items-center w-3/6'>
+                    <div className='flex justify-center items-center md:w-3/6'>
                         <Image src={project.src} alt={"image"} width={300} height={300} style={{
                             width: '100%'
                         }}/>
