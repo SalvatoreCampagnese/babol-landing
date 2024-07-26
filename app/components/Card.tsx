@@ -12,7 +12,6 @@ const Card = ({children, i}: {children:any, i:number}) => {
       >
         {children}
       </div>
-      <button>a</button>
     </div>
   )
 }
