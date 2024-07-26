@@ -97,3 +97,6 @@ body:after{
     background-attachment: fixed;
   }
 }
+.iub__us-widget {
+  display: none !important;
+}

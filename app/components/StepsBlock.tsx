@@ -1,9 +1,32 @@
-export const StepsBlock = () => {
-    return <div className="min-h-screen p-4">
-        <div className="p-[24px] rounded-[32px] min-h-[100vh]" style={{
-            boxShadow: '0px 0px 64px 0px rgba(0, 0, 0, 0.64)',
-            background: 'linear-gradient(20deg, #37324C 12.66%, #1D3240 116.79%)'
-        }}>
-        </div>
-    </div>
+'use client';
+import styles from './page.module.scss'
+import { projects } from '../data';
+import Card from './Card';
+import Image from 'next/image';
+
+export default function StepsBlock() {
+
+  return (
+    <main className={styles.main}>
+        {projects.map((project, i) => (
+            <Card key={`p_${i}`} i={i}>
+                <div className='flex flex-row h-full'>
+                    <div className='flex flex-col w-3/6 justify-between'>
+                        <div dangerouslySetInnerHTML={{__html: project.title}}></div>
+                        <div dangerouslySetInnerHTML={{
+                            __html: project.description
+                        }}></div>
+                    </div>
+                    <div className='flex justify-center items-center w-3/6'>
+                        <Image src={project.src} alt={"image"} width={300} height={300} style={{
+                            width: '100%'
+                        }}/>
+                    </div>
+                </div>
+            </Card>
+        ))}
+    </main>
+
+  )
+
 }

@@ -53,7 +53,7 @@ const TextComponent = () => {
   return (
     <div className="container" style={{ letterSpacing: '0' }}>
       <div className="content p-4">
-        <div ref={textRef} style={{ letterSpacing: '0.5px' }} className='text-[26px] font-bold'>
+        <div ref={textRef} style={{ letterSpacing: '0.5px' }} className='text-[26px] md:text-[56px] font-bold'>
           {splitText}
         </div>
       </div>
