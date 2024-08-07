@@ -1,17 +1,14 @@
-"use client"
 import React, { useEffect } from "react";
-import { Player } from '@lottiefiles/react-lottie-player';
+import { Player, Controls } from "@lottiefiles/react-lottie-player";
 
-const LottieIphone = () => {
+const LottiePlay = ({ path }: { path: string }) => {
   const [width, setWidth] = React.useState(380);
   const [height, setHeight] = React.useState(416);
   useEffect(() => {
-
     let width, height;
     // I calc ratio width and height based on the screen size and the initial value of 718x788
     height = window.innerWidth * (788 / 718);
     width = window.innerWidth;
-    
 
     if (window.innerWidth > 1950) {
       width = 800;
@@ -21,18 +18,10 @@ const LottieIphone = () => {
       height = width * 1.0974;
     }
 
-    setWidth(width-10);
+    setWidth(width - 10);
     setHeight(height);
   }, []);
-  return (
-    <Player
-      autoplay
-      loop
-      src="/iphone.json"
-      style={{ height: "100%", width:"100%" }}
-    >
-    </Player>
-  );
+  return <Player autoplay loop src={path} style={{ height, width }} ></Player>;
 };
 
-export default LottieIphone;
+export default LottiePlay;

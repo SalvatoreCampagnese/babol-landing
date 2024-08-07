@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export const EndBlock = () => {
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-[url('/bg_end.svg')] bg-cover mr-[-40px] ml-[-40px] gap-4">
+        <div className="flex flex-col items-center justify-center h-screen bg-[url('/bg_end.svg')] bg-cover mr-[-40px] ml-[-40px] gap-4 md:mt-[2rem]">
             <Image src="/logo_footer.png" alt="Babol Logo" width={64} height={64} />
             <p className="text-[34px] md:text-[56px] font-bold text-center md:leading-[56px] leading-[34px]">Be the first to revolutionize<br/>event management!</p>
             <p className="text-[17px] md:text-[24px]">Join the beta and transform event management today!</p>

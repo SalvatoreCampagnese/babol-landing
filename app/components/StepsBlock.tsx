@@ -7,7 +7,7 @@ import Image from 'next/image';
 export default function StepsBlock() {
 
   return (
-    <main className={styles.main}>
+    <div>
         {projects.map((project, i) => (
             <Card key={`p_${i}`} i={i}>
                 <div className='flex flex-col md:flex-row h-full gap-6 justify-between'>
@@ -19,13 +19,14 @@ export default function StepsBlock() {
                     </div>
                     <div className='flex justify-center items-center md:w-3/6'>
                         <Image src={project.src} alt={"image"} width={300} height={300} style={{
-                            width: '100%'
+                            width: '100%',
+                            maxHeight: "100%"
                         }}/>
                     </div>
                 </div>
             </Card>
         ))}
-    </main>
+    </div>
 
   )
 

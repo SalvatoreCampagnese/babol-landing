@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -6,9 +7,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 // Define the constant text
-const text = "Managing an event can be a chaotic experience with information scattered across different platforms and channels.\n" +
-  "Important details often get lost, leading to confusion and inefficiencies.\n" +
-  "There's no single place to handle all the activities before, during, and after the event.\n" +
+const text = "Managing an event can be a chaotic experience with information scattered across different platforms and channels.\n\n\n" +
+  "Important details often get lost, leading to confusion and inefficiencies.\n\n\n" +
+  "There's no single place to handle all the activities before, during, and after the event.\n\n\n" +
   "This can result in disorganized events and a stressful experience for both organizers and attendees.";
 
 const TextComponent = () => {
@@ -53,7 +54,7 @@ const TextComponent = () => {
   return (
     <div className="container" style={{ letterSpacing: '0' }}>
       <div className="content p-4">
-        <div ref={textRef} style={{ letterSpacing: '0.5px' }} className='text-[26px] md:text-[56px] font-bold'>
+        <div ref={textRef} style={{ letterSpacing: '0.5px' }} className='text-[26px] md:text-[50px] font-bold'>
           {splitText}
         </div>
       </div>

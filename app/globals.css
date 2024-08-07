@@ -29,14 +29,17 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  
-  background: url('/bg-mobile.svg') no-repeat center center fixed;
+
+  &.bg-mobile{
+   background: url('/bg-mobile.svg') no-repeat center center fixed;
+  }
+
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
 }
-body:after{
+body.bg-mobile:after{
   content:"";
   position:fixed; /* stretch a fixed position to the whole screen */
   top:0;
@@ -61,7 +64,7 @@ body:after{
   height:100vh;
   bottom: 0;
   background:transparent;
-  position:absolute;
+  position:fixed;
   overflow:hidden;
 }
 

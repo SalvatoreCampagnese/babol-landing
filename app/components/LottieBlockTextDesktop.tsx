@@ -1,5 +1,5 @@
+"use client"
 import Image from "next/image";
-import { relative } from "path";
 import React, { useEffect, useState, useRef } from 'react';
 
 export const LottieBlockTextDesktop = () => {
@@ -18,13 +18,13 @@ export const LottieBlockTextDesktop = () => {
         "/phones-block.svg"
     ];
 
-    const imageChangeThresholds = [2000, 2300, 2600, 3100]; // Scroll thresholds for changing images
+    const imageChangeThresholds = [2300, 2450, 2550, 2750]; // Scroll thresholds for changing images
 
     useEffect(() => {
         const handleScroll = () => {
             const scrollY = window.scrollY;
-            setFixImage(scrollY >= 1780 && scrollY <= 2150);
-            setAlignEnd(scrollY >= 2150);
+            setFixImage(scrollY >= 2300 && scrollY <= 2750);
+            setAlignEnd(scrollY >= 2750);
             let newVisibleImage = 0;
             for (let i = 0; i < imageChangeThresholds.length; i++) {
                 if (scrollY >= imageChangeThresholds[i]) {
