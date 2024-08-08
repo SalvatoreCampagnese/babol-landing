@@ -6,12 +6,12 @@ import { useState } from "react";
 import { Button } from "../Button";
 import iconApple from "../../assets/icon-apple.svg";
 import iconGoogle from "../../assets/icon-google.svg";
-const signupWithEmail = (email: string) => {
-  console.log("Sign up with email", email);
-  window.location.href = "/app/login?step=pin";
-}
 export const LoginForm = () => {
   const [email, setEmail] = useState("");
+  const signupWithEmail = (email: string) => {
+    console.log("Sign up with email", email);
+    window.location.href = "/app/login?step=pin";
+  }
   return (
     <div className="w-full h-full flex flex-col gap-[48px] justify-center">
       <HeaderBox

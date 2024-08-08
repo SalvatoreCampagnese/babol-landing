@@ -23,7 +23,7 @@ export const TabsContainer = () => {
       <div className="flex flex-row gap-4 w-full justify-center mt-xl">
         {
             Array.from({ length: 3 }).map((_, index) => (
-                <BabolCard babol={{
+                <BabolCard key={index} babol={{
                     id: index,
                     name: `Babol ${index}`,
                     category: {

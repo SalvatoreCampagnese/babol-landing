@@ -6,11 +6,11 @@ import { useState } from "react";
 import { Button } from "../Button";
 import { LabelAndSublabel } from "./InputWithLabel";
 import { ImageInput } from "./ImageInput";
-const signupWithEmail = (email: string) => {
-  console.log("Sign up with email", email);
-  window.location.href = "/app/dashboard";
-};
 export const SignupForm = () => {
+  const signupWithEmail = (email: string) => {
+    console.log("Sign up with email", email);
+    window.location.href = "/app/dashboard";
+  };
   const [email, setEmail] = useState("");
   return (
     <div className="w-full h-full flex flex-col gap-[48px] justify-center">
