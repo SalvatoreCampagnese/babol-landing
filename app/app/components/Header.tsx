@@ -7,7 +7,7 @@ export const Header = () => {
             <h1 className="text-4xl font-bold">
                 <Image src={Logo} alt="Babol" width={108} height={32} />
             </h1>
-            <Button text="Download the app" onClickFn={(e:any) => console.log("Login")} />
+            <Button text="Download the app" />
         </div>
     );
 }

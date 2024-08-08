@@ -69,8 +69,9 @@ export default function Home() {
         sm:px-[0px]
         md:px-[10px]
         2xl:px-[300px]
+        bg-mobile
         md:overflow-hidden">
-        <div className="flex flex-row w-full p-[16px] md:px-[42px] md:mt-4">
+        <div className="flex flex-row w-full p-md md:px-[42px] md:mt-4">
           <Image
             src="/logo.svg"
             alt="Babol Logo"
@@ -79,7 +80,7 @@ export default function Home() {
             height={25}
           />
           <div className="md:hidden justify-end flex w-full">
-            <div className="flex flex-row gap-[16px]">
+            <div className="flex flex-row gap-md">
               <Link href={"https://www.instagram.com/babol.app/"}><Image src="/instagram.svg" alt="Linkedin" width={24} height={24} className="cursor-pointer" /></Link>
               <Link href={"https://linkedin.com/aa"}><Image src="/linkedin.svg" alt="Linkedin" width={24} height={24} /></Link>
             </div>
@@ -102,15 +103,15 @@ export default function Home() {
                 type='text'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)} />
-              <button className="p-[16px] rounded-[12px] text-white z-10 bg-[#101011] h-[48px] text-[17px] font-bold justify-center items-center flex whitespace-nowrap" onClick={() => { register() }}>{!isLoading ? "Join beta" : <LottieButton />}</button>
+              <button className="p-md rounded-[12px] text-white z-10 bg-[#101011] h-[48px] text-[17px] font-bold justify-center items-center flex whitespace-nowrap" onClick={() => { register() }}>{!isLoading ? "Join beta" : <LottieButton />}</button>
             </div>
             {emailErr && <p className="text-red-400 text-[14px] md:text-[16px]">An error occurred! Please verify your email or try again.</p>}
             <p className="mt-2 text-[12px] md:text-[16px]">
               By joining the beta program you accept our <Link className="font-bold text-[#A08CF3]" href={"/terms_conditions.pdf"}>Terms & Conditions</Link>
             </p>
-            <div className="absolute bottom-0 pb-[42px] flex-row justify-center gap-[16px] hidden md:flex">
+            <div className="absolute bottom-0 pb-[42px] flex-row justify-center gap-md hidden md:flex">
               <span>Follow us</span>
-              <div className="flex flex-row gap-[16px]">
+              <div className="flex flex-row gap-md">
                 <Link href={"https://www.instagram.com/babol.app/"}><Image src="/instagram.svg" alt="Linkedin" width={24} height={24} className="cursor-pointer" /></Link>
                 <Link href={"https://linkedin.com/aa"}><Image src="/linkedin.svg" alt="Linkedin" width={24} height={24} /></Link>
               </div>

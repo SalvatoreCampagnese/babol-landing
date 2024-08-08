@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { LoginForm } from "./LoginForm";
 import { useSearchParams } from "next/navigation";
 import { PinForm } from "./PinForm";
+import { SignupForm } from "./SignupForm";
 
 export const FormBox = () => {
   // Based on query param "step" we render different components
@@ -15,6 +16,7 @@ export const FormBox = () => {
     <div className="bg-[#fff] rounded-[24px] px-[64px] py-[48px] flex justify-center items-center w-fit">
       {step === "login" && <LoginForm />}
       {step === "pin" && <PinForm />}
+      {step === "signup" && <SignupForm />}
     </div>
   );
 };

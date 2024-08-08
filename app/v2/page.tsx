@@ -3,9 +3,7 @@ import React from "react";
 import LottieIphone from "../components/LottiePlayer";
 import Link from "next/link";
 import TextComponent from "../components/TextComponent";
-import { LottieBlockText } from "../components/LottieBlockText";
 import StepsBlock from "../components/StepsBlock";
-import LottieBlockTextDesktop from "../components/LottieBlockTextDesktop";
 import { EndBlock } from "../components/EndBlock";
 import MouseMove from "../components/MouseMove";
 import { LottieBlock } from "../components/LottieBlock";
@@ -26,7 +24,7 @@ export default function Home() {
             height={25}
           />
           <div className="md:hidden justify-end flex w-full">
-            <div className="flex flex-row gap-[16px]">
+            <div className="flex flex-row gap-md">
               <Link href={"https://www.instagram.com/babol.app/"}><Image src="/instagram.svg" alt="Linkedin" width={24} height={24} className="cursor-pointer" /></Link>
               <Link href={"https://linkedin.com/aa"}><Image src="/linkedin.svg" alt="Linkedin" width={24} height={24} /></Link>
             </div>
@@ -42,14 +40,14 @@ export default function Home() {
                 Join the beta and transform event management today!
               </p>
               <div className="flex flex-row ">
-                <button className="p-[16px] rounded-[12px] text-[#101011] z-10 bg-white h-[48px] text-[17px] font-bold justify-center items-center flex whitespace-nowrap gap-1">Join Beta<Image src="/mini-logo.svg" width={24} height={24} alt={"babol logo"}/></button>
+                <button className="p-md rounded-[12px] text-[#101011] z-10 bg-white h-[48px] text-[17px] font-bold justify-center items-center flex whitespace-nowrap gap-1">Join Beta<Image src="/mini-logo.svg" width={24} height={24} alt={"babol logo"}/></button>
               </div>
               <p className="mt-2 text-[12px] md:text-[16px]">
                 By joining the beta program you accept our <Link className="font-bold text-[#A08CF3]" href={"./terms_conditions.pdf"}>Terms & Conditions</Link>
               </p>
-              <div className="absolute bottom-0 pb-[42px] flex-row justify-center gap-[16px] hidden md:flex">
+              <div className="absolute bottom-0 pb-[42px] flex-row justify-center gap-md hidden md:flex">
                 <span>Follow us</span>
-                <div className="flex flex-row gap-[16px]">
+                <div className="flex flex-row gap-md">
                   <Link href={"https://www.instagram.com/babol.app/"}><Image src="/instagram.svg" alt="Linkedin" width={24} height={24} className="cursor-pointer" /></Link>
                   <Link href={"https://linkedin.com/aa"}><Image src="/linkedin.svg" alt="Linkedin" width={24} height={24} /></Link>
                 </div>

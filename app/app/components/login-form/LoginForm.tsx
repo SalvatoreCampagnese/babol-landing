@@ -6,6 +6,10 @@ import { useState } from "react";
 import { Button } from "../Button";
 import iconApple from "../../assets/icon-apple.svg";
 import iconGoogle from "../../assets/icon-google.svg";
+const signupWithEmail = (email: string) => {
+  console.log("Sign up with email", email);
+  window.location.href = "/app/login?step=pin";
+}
 export const LoginForm = () => {
   const [email, setEmail] = useState("");
   return (
@@ -16,45 +20,34 @@ export const LoginForm = () => {
         subTitle="The new way to manage your event."
         thirdTitle="All in one space."
       />
-      <div className="flex flex-col gap-[16px]">
+      <div className="flex flex-col gap-md">
         <Input
           placeholder="Email"
           onChangeFn={setEmail}
           value={email}
           type="email"
+          kind="primary min-w-352"
         />
         <Button
           text="Continue with Email"
-          onClickFn={(e: any) => console.log("Login")}
-          height="56px"
-          fontSize="17px"
-          borderRadius="16px"
+          onClickFn={signupWithEmail}
+          kind="primary big"
         />
         {/* HR WITH OR TEXT IN MIDDLE*/}
-        <div className="flex items-center gap-[16px] w-full">
+        <div className="flex items-center gap-md w-full">
           <hr className="w-2/4 border-[#606672] border-1" />
           <p className="text-[#606672]">or</p>
           <hr className="w-2/4 border-[#606672] border-1" />
         </div>
 
-        <div className="flex flex-row gap-[16px]">
+        <div className="flex flex-row gap-md">
           <Button
             icon={iconGoogle}
-            backgroundColor="bg-light-gray"
-            onClickFn={(e: any) => console.log("Login")}
-            height="56px"
-            fontSize="17px"
-            borderRadius="16px"
-            width="w-1/2"
+            kind="secondary big"
           />
           <Button
             icon={iconApple}
-            backgroundColor="bg-light-gray"
-            onClickFn={(e: any) => console.log("Login")}
-            height="56px"
-            fontSize="17px"
-            borderRadius="16px"
-            width="w-1/2"
+            kind="secondary big"
           />
         </div>
       </div>

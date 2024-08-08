@@ -12,7 +12,7 @@ export default function ThankYou() {
       <main className="flex min-h-screen flex-col bg-[url('/bg-mobile.svg')] sm:bg-[url('/bg2.svg')] bg-cover bg-no-repeat h-[100vh] justify-center
         px-[10px]
         md:overflow-hidden">
-        <div className="flex flex-row w-full p-[16px] md:px-[42px] md:mt-4 absolute top-0">
+        <div className="flex flex-row w-full p-md md:px-[42px] md:mt-4 absolute top-0">
           <Image
             src="/logo.svg"
             alt="Babol Logo"
@@ -32,9 +32,9 @@ export default function ThankYou() {
             We&apos;re rolling out access to Babol week by week.<br/><br/>
             See you soon — Team Babol
             </p>
-            <div className="mt-12 flex-row justify-center gap-[16px] hidden md:flex">
+            <div className="mt-12 flex-row justify-center gap-md hidden md:flex">
               <span>Follow us</span>
-              <div className="flex flex-row gap-[16px] z-10">
+              <div className="flex flex-row gap-md z-10">
                 <Link href={"https://www.instagram.com/babol.app/"} className="cursor-pointer"><Image src="/instagram.svg" alt="Linkedin" width={24} height={24} /></Link>
                 <Link href={"https://linkedin.com/aa"} className="cursor-pointer"><Image src="/linkedin.svg" alt="Linkedin" width={24} height={24} className="cursor-pointer" /></Link>
               </div>

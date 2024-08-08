@@ -4,34 +4,34 @@
 
 @font-face {
   font-family: satoshiBold;
-  src: url('/fonts/SatoshiBold.ttf') format('truetype');
+  src: url("/fonts/SatoshiBold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
 }
 @font-face {
   font-family: satoshiMedium;
-  src: url('/fonts/SatoshiMedium.ttf') format('truetype');
+  src: url("/fonts/SatoshiMedium.ttf") format("truetype");
   font-weight: 480;
   font-style: normal;
 }
 
 @font-face {
   font-family: satoshiRegular;
-  src: url('/fonts/SatoshiRegular.ttf') format('truetype');
+  src: url("/fonts/SatoshiRegular.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
 }
 
 * {
-  font-family: satoshiRegular;
+  @apply font-satoshi;
   color: white;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
 
-  &.bg-mobile{
-   background: url('/bg-mobile.svg') no-repeat center center fixed;
+  &.bg-mobile {
+    background: url("/bg-mobile.svg") no-repeat center center fixed;
   }
 
   -webkit-background-size: cover;
@@ -39,14 +39,14 @@ body {
   -o-background-size: cover;
   background-size: cover;
 }
-body.bg-mobile:after{
-  content:"";
-  position:fixed; /* stretch a fixed position to the whole screen */
-  top:0;
-  height:100vh; /* fix for mobile browser address bar appearing disappearing */
-  left:0;
-  right:0;
-  z-index:-1; /* needed to keep in the background */
+body.bg-mobile:after {
+  content: "";
+  position: fixed; /* stretch a fixed position to the whole screen */
+  top: 0;
+  height: 100vh; /* fix for mobile browser address bar appearing disappearing */
+  left: 0;
+  right: 0;
+  z-index: -1; /* needed to keep in the background */
   background: url("/bg-mobile.svg") center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -58,48 +58,80 @@ body.bg-mobile:after{
     text-wrap: balance;
   }
 }
-.box{
-  width:100%;
+.box {
+  width: 100%;
   min-height: 100vh;
-  height:100vh;
+  height: 100vh;
   bottom: 0;
-  background:transparent;
-  position:fixed;
-  overflow:hidden;
+  background: transparent;
+  position: fixed;
+  overflow: hidden;
 }
 
-.circle{
-  background:#ffffff50;
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  position:absolute;
+.circle {
+  background: #ffffff50;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  position: absolute;
   filter: blur(100px);
-  
-  transform:translate3d(-50%,-50%,0);
-  transition:transform 0.2s cubic-bezier(.02,1.23,.79,1.08);
+
+  transform: translate3d(-50%, -50%, 0);
+  transition: transform 0.2s cubic-bezier(0.02, 1.23, 0.79, 1.08);
 }
-.bg-mobile{
-  /* background-image: url('/bg-mobile.svg') !important;
+.bg-mobile {
+  background-image: url('/bg-mobile.svg') !important;
   background: url('/bg-mobile.svg') !important;
-  background-size: cover !important; */
+  background-size: cover !important;
 }
-.backdrop-filter-blur{
+.backdrop-filter-blur {
   backdrop-filter: blur(20px) !important;
   -webkit-backdrop-filter: blur(20px) !important;
 }
 
-@supports ( -webkit-touch-callout : none) {
-    body {
-      background-attachment:scroll
-    }
+@supports (-webkit-touch-callout: none) {
+  body {
+    background-attachment: scroll;
+  }
 }
-  
-@supports not ( -webkit-touch-callout : none) {
+
+@supports not (-webkit-touch-callout: none) {
   body {
     background-attachment: fixed;
   }
 }
 .iub__us-widget {
   display: none !important;
+}
+
+/* TAILWIND CLASSES */
+button {
+  @apply outline-none;
+
+  &.primary {
+    @apply h-sm bg-surfaceBlack rounded-sm text-md text-white px-md py-sm flex justify-center items-center;
+    &.big{
+      @apply h-lg text-lg font-satoshiBold;
+    }
+  }
+  &.secondary {
+    @apply h-sm bg-surfaceAccentExtraLight rounded-sm text-md text-white px-md py-sm flex justify-center items-center w-full;
+    
+    &.big{
+      @apply h-lg text-lg font-satoshiBold;
+    }
+  }
+  &.link {
+    @apply h-sm bg-transparent rounded-sm text-md text-black py-sm flex justify-center items-center font-bold underline font-satoshiBold text-5;
+  }
+}
+
+
+input {
+  &.primary {
+    @apply bg-white rounded-sm p-md h-lg w-full border border-lighter text-black;
+    &.min-w-352 {
+      min-width: 352px;
+    }
+  }
 }

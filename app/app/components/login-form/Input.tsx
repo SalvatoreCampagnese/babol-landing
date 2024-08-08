@@ -1,17 +1,22 @@
+"use client"
 export const Input = ({
   placeholder,
   type,
   value,
   onChangeFn,
+  customClasses = "",
+  kind = "primary",
 }: {
   placeholder: string;
   type: string;
   value: string;
   onChangeFn: Function;
+  customClasses?: string;
+  kind?: string;
 }) => {
   return (
     <input
-      className="bg-[#fff] rounded-[12px] p-[16px] min-w-[352px] h-[56px] w-full border border-1 border-[#606672]"
+      className={`${kind} ${customClasses}`}
       placeholder={placeholder}
       type={type}
       value={value}
