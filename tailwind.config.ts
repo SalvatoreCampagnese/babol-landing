@@ -15,6 +15,19 @@ const config: Config = {
         "app-gradient":
           "linear-gradient(191deg, #5831F5 2.5%, #101011 84.64%) !Important",
       },
+      backgroundColor: {
+        "light-gray":"#EEF2F6"
+      },
+      borderRadius: {
+        "sm": "12px",
+        "md": "16px",
+      },
+      borderColor: {
+        "lighter": "#606672",
+      },
+      gap: {
+        "xs": "8px",
+      },
     },
   },
   plugins: [],

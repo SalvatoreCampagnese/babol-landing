@@ -11,7 +11,7 @@ export const Input = ({
 }) => {
   return (
     <input
-      className="bg-[#f5f5f5] rounded p-[16px] w-[320px] h-[56px] w-full border border-1 border-[#606672]"
+      className="bg-[#fff] rounded-[12px] p-[16px] min-w-[352px] h-[56px] w-full border border-1 border-[#606672]"
       placeholder={placeholder}
       type={type}
       value={value}
