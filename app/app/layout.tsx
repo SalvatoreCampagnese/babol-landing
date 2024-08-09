@@ -14,12 +14,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-      </head>
-      <body className="p-[24px] flex flex-col gap-[24px] bg-app-gradient overflow-x-hidden">
-        <Header />
-        <IubendaScripts />
-        {children}
+      <head></head>
+      <body className="relative bg-app-gradient min-h-100vh">
+        <div className="p-[24px] flex flex-col gap-[24px] overflow-x-hidden" id="wrapper">
+          <Header />
+          <IubendaScripts />
+          {children}
+        </div>
         <Footer />
       </body>
     </html>
