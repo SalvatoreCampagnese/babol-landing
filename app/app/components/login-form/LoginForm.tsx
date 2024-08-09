@@ -31,7 +31,7 @@ export const LoginForm = () => {
         <Button
           text="Continue with Email"
           onClickFn={signupWithEmail}
-          kind="primary big"
+          kind="primary"
         />
         {/* HR WITH OR TEXT IN MIDDLE*/}
         <div className="flex items-center gap-md w-full">
@@ -43,11 +43,13 @@ export const LoginForm = () => {
         <div className="flex flex-row gap-md">
           <Button
             icon={iconGoogle}
-            kind="secondary big"
+            kind="secondary"
+            customClasses="h-lg text-lg font-satoshiBold"
           />
           <Button
             icon={iconApple}
-            kind="secondary big"
+            kind="secondary"
+            customClasses="h-lg text-lg font-satoshiBold"
           />
         </div>
       </div>

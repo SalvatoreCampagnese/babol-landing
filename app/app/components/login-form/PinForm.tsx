@@ -24,7 +24,8 @@ export const PinForm = () => {
           </div>
           <Button
             text="Continue"
-            kind="primary big"
+            kind="primary"
+            customClasses="h-lg text-lg font-satoshiBold"
             onClickFn={() => {
               window.location.href = "/app/login?step=signup";
             }}

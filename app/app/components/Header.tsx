@@ -10,7 +10,7 @@ export const Header = () => {
         <>
         {showModalDownload && <ModalDownloadApp hideModal={() => setShowModalDownload(false)}/>}
 
-        <div className="flex h-[40px] flex-row justify-between">
+        <div className="flex h-[40px] flex-row justify-between items-center">
             <h1 className="text-4xl font-bold">
                 <Image src={Logo} alt="Babol" width={108} height={32} />
             </h1>

@@ -80,8 +80,8 @@ body.bg-mobile:after {
   transition: transform 0.2s cubic-bezier(0.02, 1.23, 0.79, 1.08);
 }
 .bg-mobile {
-  background-image: url('/bg-mobile.svg') !important;
-  background: url('/bg-mobile.svg') !important;
+  background-image: url("/bg-mobile.svg") !important;
+  background: url("/bg-mobile.svg") !important;
   background-size: cover !important;
 }
 .backdrop-filter-blur {
@@ -109,23 +109,15 @@ button {
   @apply outline-none;
 
   &.primary {
-    @apply h-sm bg-surfaceBlack rounded-sm text-md text-white px-md py-sm flex justify-center items-center;
-    &.big{
-      @apply h-lg text-lg font-satoshiBold;
-    }
+    @apply bg-surfaceBlack rounded-sm text-md text-white px-md py-sm flex justify-center items-center h-lg text-lg font-satoshiBold;
   }
   &.secondary {
-    @apply h-sm bg-surfaceAccentExtraLight rounded-sm text-md text-white px-md py-sm flex justify-center items-center w-full;
-    
-    &.big{
-      @apply h-lg text-lg font-satoshiBold;
-    }
+    @apply bg-surfaceAccentExtraLight rounded-sm text-md text-white px-md py-sm flex justify-center items-center w-full h-lg text-lg font-satoshiBold;
   }
   &.link {
-    @apply h-sm bg-transparent rounded-sm text-md text-black py-sm flex justify-center items-center font-bold underline font-satoshiBold text-5;
+    @apply bg-transparent rounded-sm text-md text-black py-sm flex justify-center items-center font-bold underline font-satoshiBold text-5 h-lg text-lg font-satoshiBold
   }
 }
-
 
 input {
   &.primary {
@@ -134,12 +126,20 @@ input {
 }
 
 #wrapper {
-  padding-bottom: 4rem;    /* Footer height */
+  padding-bottom: 4rem; /* Footer height */
 }
 
 #footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 2.5rem;            /* Footer height */
+  height: 2.5rem; /* Footer height */
+}
+
+@media screen and (orientation: portrait) {
+  button {
+    .primary {
+      @apply bg-surfaceBlack rounded-sm text-md text-white px-md py-sm flex justify-center items-center h-sm text-lg font-satoshiBold !important;
+    }
+  }
 }

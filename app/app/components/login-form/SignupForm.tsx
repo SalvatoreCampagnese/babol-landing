@@ -105,7 +105,8 @@ export const SignupForm = () => {
         <Button
           text="Create account"
           onClickFn={signupWithEmail}
-          kind="primary big"
+          kind="primary"
+          customClasses="h-lg text-lg font-satoshiBold"
         />
       </div>
     </div>
