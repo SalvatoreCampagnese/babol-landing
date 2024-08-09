@@ -130,9 +130,6 @@ button {
 input {
   &.primary {
     @apply bg-white rounded-sm p-md h-lg w-full border border-lighter text-black;
-    &.min-w-352 {
-      min-width: 352px;
-    }
   }
 }
 

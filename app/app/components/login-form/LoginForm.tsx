@@ -26,7 +26,7 @@ export const LoginForm = () => {
           onChangeFn={setEmail}
           value={email}
           type="email"
-          kind="primary sm:w-352 w-full"
+          kind="primary sm:min-w-352 w-full"
         />
         <Button
           text="Continue with Email"
