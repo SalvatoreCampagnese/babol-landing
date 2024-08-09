@@ -53,9 +53,8 @@ const Pin = () => {
   };
 
   return (
-    <div className="text-center flex flex-col justify-center items-center">
-      <form onSubmit={handleSubmit}>
-        <div className="flex space-x-4">
+    <div className="text-center flex flex-col justify-center items-center max-w-full">
+        <div className="flex space-x-1 sm:space-x-4 w-full">
           {password.map((digit, i) => (
             <div
               key={i}
@@ -82,7 +81,6 @@ const Pin = () => {
             </div>
           ))}
         </div>
-      </form>
     </div>
   );
 };

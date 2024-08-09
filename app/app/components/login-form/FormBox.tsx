@@ -13,7 +13,7 @@ export const FormBox = () => {
     setStep(params?.get("step") || "login");
   }, [params]);
   return (
-    <div className="bg-[#fff] rounded-[24px] px-[64px] py-[48px] flex justify-center items-center w-fit">
+    <div className="bg-[#fff] rounded-[24px] px-md sm:px-xxxl sm:py-xxl py-xl flex justify-center items-center w-full sm:w-fit">
       {step === "login" && <LoginForm />}
       {step === "pin" && <PinForm />}
       {step === "signup" && <SignupForm />}

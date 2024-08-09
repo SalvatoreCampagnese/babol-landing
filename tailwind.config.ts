@@ -40,6 +40,9 @@ const config: Config = {
         sm: "12px",
         md: "14px",
         lg: "16px",
+        xl: "18px",
+        xxl: "20px",
+        xxxl: "28px"
       },
       lineHeight: {
         "1": "14.3px",
@@ -125,6 +128,24 @@ const config: Config = {
         xl: '32px',
         xxl: '48px',
       },
+
+      gap: {
+        '-xxl': '-48px',
+        '-xl': '-32px',
+        '-lg': '-24px',
+        '-md': '-16px',
+        '-sm': '-12px',
+        '-xs': '-8px',
+        '-xxs': '-4px',
+        none: '0px',
+        xxs: '4px',
+        xs: '8px',
+        sm: '12px',
+        md: '16px',
+        lg: '24px',
+        xl: '32px',
+        xxl: '48px',
+      },
       padding: {
         '-xxl': '-48px',
         '-xl': '-32px',
@@ -141,6 +162,7 @@ const config: Config = {
         lg: '24px',
         xl: '32px',
         xxl: '48px',
+        xxxl: '64px',
       },
       height: {
         xxs: '32px',

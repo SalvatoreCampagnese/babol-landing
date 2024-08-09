@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
       </head>
-      <body className="p-[24px] flex flex-col gap-[24px] bg-app-gradient overflow-hidden">
+      <body className="p-[24px] flex flex-col gap-[24px] bg-app-gradient overflow-x-hidden">
         <Header />
         <IubendaScripts />
         {children}
