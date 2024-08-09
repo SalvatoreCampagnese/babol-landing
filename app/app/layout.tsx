@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head></head>
-      <body className="relative bg-app-gradient min-h-100vh">
+      <body className="relative bg-app-gradient min-h-screen">
         <div className="p-[24px] flex flex-col gap-[24px] overflow-x-hidden" id="wrapper">
           <Header />
           <IubendaScripts />
