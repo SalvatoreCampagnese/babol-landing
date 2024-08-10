@@ -25,7 +25,7 @@ const BabolCard = ({ babol, background, ratio }: {
 
   return (
     <div
-      className="relative h-32 p-4 w-[390px] flex justify-between rounded-xl cursor-pointer"
+      className="relative h-32 p-4 w-5/6 sm:w-2/6 flex justify-between rounded-xl cursor-pointer"
       onClick={handleNavigate}
     >
       <div
