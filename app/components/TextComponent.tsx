@@ -51,9 +51,9 @@ const TextComponent = () => {
   ));
 
   return (
-    <div className="container" style={{ letterSpacing: '0' }}>
+    <div className="container md:px-[80px] min-w-full" style={{ letterSpacing: '0' }}>
       <div className="content p-4">
-        <div ref={textRef} style={{ letterSpacing: '0.5px' }} className='text-[26px] font-bold'>
+        <div ref={textRef} style={{ letterSpacing: '0.5px' }} className='text-[26px] font-bold md:text-[60px]'>
           {splitText}
         </div>
       </div>

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React, { useEffect, useState, useRef } from 'react';
+import ImageFramerMotion from "./ImageFramerMotion";
 
 export const LottieBlockText = () => {
     const [visibleImage, setVisibleImage] = useState(0);
@@ -40,11 +41,7 @@ export const LottieBlockText = () => {
     return (
         <div className="relative p-4">
             <div className="sticky top-[-8px] w-full h-[358px] flex items-center justify-center z-10 ">
-                {images.map((src, index) => (
-                    <div key={index}  style={{ opacity: index === visibleImage ? 1 : 0, position: 'absolute', transition: 'opacity 0s', backdropFilter: 'blur(20px) !important', borderRadius: 15 }} className="backdrop-filter-blur">
-                        <Image src={src} height={358} width={358} alt={`Image ${index}`} />
-                    </div>
-                ))}
+                <ImageFramerMotion />
             </div>
             <div ref={textRef} className="relative px-1 py-2"> {/* Adjust margin-top as needed */}
                 <p className="text-[34px] font-bold">

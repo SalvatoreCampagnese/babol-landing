@@ -1,0 +1,50 @@
+/* components/StickyComponent.module.css */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh; /* Full height of the viewport */
+    position: relative;
+  }
+  
+  .stickyWrapper {
+    width: 100%;
+  }
+  
+  .stickyComponent {
+    display: flex;
+    width: 100%;
+    height: 100%; /* Full height of the container */
+    transition: all 0.3s ease;
+  }
+  
+  .fixed {
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .placeholder {
+    height: 100vh; /* Full height placeholder to maintain layout */
+  }
+  
+  .leftColumn {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 100%; /* To enable scrolling within the text column */
+  }
+  
+  .rightColumn {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .rightColumn img {
+    max-width: 100%;
+    height: auto;
+  }
+  
