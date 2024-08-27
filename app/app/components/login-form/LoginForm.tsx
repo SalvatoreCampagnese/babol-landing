@@ -6,12 +6,71 @@ import { useState } from "react";
 import { Button } from "../Button";
 import iconApple from "../../assets/icon-apple.svg";
 import iconGoogle from "../../assets/icon-google.svg";
+import { getUserByEmail, signupWithEmail } from "../../utils/user";
+import { useRouter } from "next/navigation";
+import { supabase } from "../../utils/supabase";
+import { useAppDispatch, useAppSelector } from "../../lib/store";
+import { setUserData } from "../../lib/signupSlice";
+
 export const LoginForm = () => {
   const [email, setEmail] = useState("");
-  const signupWithEmail = (email: string) => {
-    console.log("Sign up with email", email);
-    window.location.href = "/app/login?step=pin";
+  const [isLoading, setIsLoading] = useState(false);
+  const navigation = useRouter();
+  const password = process.env.NEXT_PUBLIC_USER_DEFAULT_PASSWORD || "";
+  const userState = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+
+  const _signupWithEmail = async () => {
+    setIsLoading(true);
+    try {
+      dispatch(setUserData({ email, password }));
+      const { data: user, error } = await getUserByEmail(email);
+      if (error?.code === 'PGRST116') {
+        await handleNewAccount();
+        return;
+      }
+      if (error) throw error.message;
+
+      console.log(user && !user.password_changed && (user.google || user.apple));
+
+      if (user && !user.password_changed && (user.google || user.apple)) {
+        await handleExistingAccount(false, user.apple ? 'apple' : user.google ? 'google' : undefined);
+        return;
+      }
+
+      await handleExistingAccount(true)
+    } catch (e: any) {
+      window.alert(e);
+    } finally {
+      setIsLoading(false);
+    }
   }
+
+  const handleNewAccount = async () => {
+    const { error } = await signupWithEmail(email, password);
+    if (error) throw error.message;
+    navigation.push('?step=pin');
+  }
+
+
+  const handleExistingAccount = async (hasPasswordChanged: boolean, providerType?: 'google' | 'apple') => {
+    if (!hasPasswordChanged) {
+      if (providerType) {
+        window.alert('Please sign in with your ' + providerType + ' account');
+        return;
+      }
+
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      if (error) throw error.message;
+    }
+
+    navigation.push('?step=password');
+  }
+
+
   return (
     <div className="w-full h-full flex flex-col gap-[48px] justify-center">
       <HeaderBox
@@ -30,7 +89,7 @@ export const LoginForm = () => {
         />
         <Button
           text="Continue with Email"
-          onClickFn={signupWithEmail}
+          onClickFn={_signupWithEmail}
           kind="primary"
         />
         {/* HR WITH OR TEXT IN MIDDLE*/}

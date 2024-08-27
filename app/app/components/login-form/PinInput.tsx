@@ -1,6 +1,12 @@
 import React, { useRef, useState } from "react";
 
-const Pin = () => {
+const Pin = ({
+  value,
+  setValue,
+}: {
+  value: number[];
+  setValue: any;
+}) => {
   const maxPinLength = 6;
   const [password, setPassword] = useState<number[]>(
     Array(maxPinLength).fill(-1)
@@ -13,6 +19,7 @@ const Pin = () => {
       let pass = [...password];
       pass[i] = -1;
       setPassword(pass);
+      setValue(pass);
       setActiveInput(i - 1);
       if (i !== 0) {
         let nextInput = inpRefs.current[i - 1];
@@ -30,6 +37,7 @@ const Pin = () => {
     if (!isNaN(value)) {
       pass[i] = value;
       setPassword(pass);
+      setValue(pass);
       setActiveInput(i + 1);
       let nextInput = inpRefs.current[i + 1];
       nextInput?.focus();
@@ -44,13 +52,11 @@ const Pin = () => {
       pass[i] = pasteArray[i] ?? -1;
     }
     setPassword(pass);
+    setValue(pass);
     setActiveInput(pasteArray.length >= maxPinLength ? -1 : pasteArray.length);
     inpRefs.current[pasteArray.length >= maxPinLength ? maxPinLength - 1 : pasteArray.length]?.focus();
   };
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-  };
 
   return (
     <div className="text-center flex flex-col justify-center items-center max-w-full">

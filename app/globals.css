@@ -109,13 +109,13 @@ button {
   @apply outline-none;
 
   &.primary {
-    @apply bg-surfaceBlack rounded-sm text-md text-white px-md py-sm flex justify-center items-center h-lg text-lg font-satoshiBold;
+    @apply bg-surfaceBlack rounded-sm text-white px-md py-sm flex justify-center items-center h-lg text-lg font-satoshiBold;
   }
   &.secondary {
-    @apply bg-surfaceAccentExtraLight rounded-sm text-md text-white px-md py-sm flex justify-center items-center w-full h-lg text-lg font-satoshiBold;
+    @apply bg-surfaceAccentExtraLight rounded-sm text-white px-md py-sm flex justify-center items-center w-full h-lg text-lg font-satoshiBold;
   }
   &.link {
-    @apply bg-transparent rounded-sm text-md text-black py-sm flex justify-center items-center font-bold underline font-satoshiBold text-5 h-lg text-lg font-satoshiBold
+    @apply bg-transparent rounded-sm py-sm flex justify-center items-center font-bold underline h-lg text-lg font-satoshiBold
   }
 }
 

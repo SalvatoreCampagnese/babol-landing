@@ -1,18 +1,29 @@
+"use client"
 import type { Metadata } from "next";
 import IubendaScripts from "../../components/IubendaScripts";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-
-export const metadata: Metadata = {
-  title: "Babol App",
-  description: "Organize your events in a new way! Everything in one place!",
-};
+import ReduxProvider from "../StoreProvider";
+import { supabase } from "../utils/supabase";
+import { useEffect } from "react";
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  useEffect(() => {
+    const fetchSession = async () => {
+
+      // If signed in, redirect to dashboard
+      const { data } = await supabase.auth.getSession();
+      if (data.session) {
+        //window.location.href = "/app/dashboard";
+      }
+    }
+    fetchSession();
+  },[]);
   return (
+    <ReduxProvider>
     <html lang="en">
       <head></head>
       <body className="relative bg-app-gradient min-h-screen">
@@ -24,5 +35,6 @@ export default function RootLayout({
         <Footer />
       </body>
     </html>
+    </ReduxProvider>
   );
 }

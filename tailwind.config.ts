@@ -14,6 +14,8 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "app-gradient":
           "linear-gradient(191deg, #5831F5 2.5%, #101011 84.64%) !Important",
+        'my_bg_image' : "url('./app/assets/babol-bg/bg1.png')",
+      
       },
       backgroundColor: {
         "light-gray":"#EEF2F6"
