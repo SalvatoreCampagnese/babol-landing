@@ -38,6 +38,7 @@ export const LottieBlockTextDesktop = () => {
 
         setImageDimensions(document.getElementById("test")?.offsetWidth || 358);
         return () => window.removeEventListener('scroll', handleScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

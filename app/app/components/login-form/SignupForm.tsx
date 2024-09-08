@@ -8,12 +8,14 @@ import { LabelAndSublabel } from "./InputWithLabel";
 import { ImageInput } from "./ImageInput";
 import { useAppDispatch, useAppSelector } from "../../lib/store";
 import { setUserData } from "../../lib/signupSlice";
+import { updateProfile } from "../../utils/user";
 export const SignupForm = () => {
   const [securityLevel, setSecurityLevel] = useState(0);
+  const [image, setImage] = useState(null);
   const userData = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const signupWithEmail = async (email: string) => {
-    await updateLoggedUser(userData);
+    await updateProfile(userData.password, image);
     window.location.href = "/app/dashboard";
   };
   useEffect(() => {
@@ -141,7 +143,7 @@ export const SignupForm = () => {
             sublabel="Help your friends to recognize you.<br/>Everyone will be able to see your picture"
           />
           <div className="flex flex-col gap-2 justify-between">
-            <ImageInput />
+            <ImageInput image={image} setImage={setImage} />
           </div>
         </div>
 
