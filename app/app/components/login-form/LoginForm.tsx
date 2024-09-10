@@ -64,7 +64,7 @@ export const LoginForm = () => {
         email,
         password,
       });
-      if (error) throw error.message;
+      if (error) { console.log(error.message); return error.message; }
     }
 
     navigation.push('?step=password');

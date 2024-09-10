@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { LoginForm } from "./LoginForm";
 import { useSearchParams } from "next/navigation";
 import { PinForm } from "./PinForm";
@@ -8,6 +8,7 @@ import { BackButton } from "./BackButton";
 import { getUserData, setUserData } from '../../lib/signupSlice'
 import { useAppDispatch, useAppSelector } from "../../lib/store";
 import { PasswordForm } from "./PasswordForm";
+import { ResetPasswordSent } from "./ResetPasswordSent";
 
 export const FormBox = () => {
   // Initialize the store with the product information
@@ -49,6 +50,7 @@ export const FormBox = () => {
           {step === "pin" && <PinForm/>}
           {step === "signup" && <SignupForm />}
           {step === "password" && <PasswordForm />}
+          {step === "reset-password" && <Suspense><ResetPasswordSent /></Suspense>}
         </div>
       </div>
     </div>

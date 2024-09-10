@@ -2,12 +2,15 @@
 import { HeaderBox } from "./HeaderBox";
 import iconPassword from "../../assets/icon-password.svg";
 import { Input } from "./Input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../Button";
 import { useAppSelector } from "../../lib/store";
 import { loginWithEmail } from "../../utils/user";
+import { supabase } from "../../utils/supabase";
+import { useRouter } from "next/navigation";
 
 export const PasswordForm = () => {
+  const router = useRouter();
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const userData = useAppSelector((state) => state.user);
@@ -31,8 +34,20 @@ export const PasswordForm = () => {
       setIsLoading(false);
     }
   }
+  useEffect(() => {
+    if(userData.email === "") {
+        router.push('/app/login?step=login');
+    }
+  }, [])
   const _resetPassword = async () => {
-    
+    if(!userData.email) {
+        window.alert('Email is required');
+        return;
+    }
+    await supabase.auth.resetPasswordForEmail(userData.email, {
+        redirectTo: window.location.origin + "/app/login?step=reset-password&email=" + userData.email+ "&redirect=true"
+    });
+    router.push('/app/login?step=reset-password&email=' + userData.email);
   }
   return (
     <div className="w-full h-full flex flex-col gap-[48px] justify-center">

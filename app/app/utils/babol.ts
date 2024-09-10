@@ -9,12 +9,13 @@ export const getPartecipantBabols = async () => {
 
     // Get logged user
     const { data: loggedUser } = await getLoggedUserProfile();
-    console.log("logged", loggedUser);
+    console.log(loggedUser);
+    if(!loggedUser) return [];
 
     // Get bubbles
     return supabase.from("babol_partecipants")
         .select("babols(*, category(*))")
-        .eq("profileID", loggedUser.id)
+        .eq("profileID", loggedUser?.id)
         .neq('babols.status', 'deleted')
         .not('babols', 'is', null)
         .returns<ReturnType>()

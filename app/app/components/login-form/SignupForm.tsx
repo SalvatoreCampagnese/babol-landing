@@ -5,7 +5,7 @@ import { Input } from "./Input";
 import { useEffect, useState } from "react";
 import { Button } from "../Button";
 import { LabelAndSublabel } from "./InputWithLabel";
-import { ImageInput } from "./ImageInput";
+import ImageInput from "./ImageInput";
 import { useAppDispatch, useAppSelector } from "../../lib/store";
 import { setUserData } from "../../lib/signupSlice";
 import { updateProfile } from "../../utils/user";
