@@ -70,6 +70,30 @@ export const LoginForm = () => {
     navigation.push('?step=password');
   }
 
+  const loginWithProvider = async (provider: 'google' | 'apple') => {
+    console.log(window.location.origin)
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: window.location.origin + "/app/login?step=login"
+      }
+    });
+    if (error) { console.log(error.message); return error.message; }
+
+  }
+
+  const modifyProvider = async (provider: 'google' | 'apple', status: boolean, userId?: string) => {
+    let loggedUserId;
+    if (!userId) {
+        const { data: logged_user, error: error_user } = await supabase.auth.getUser();
+        if (error_user) throw error_user.message;
+        loggedUserId = logged_user.user.id
+    }
+
+    return supabase.from('profiles').update({
+        [provider]: status,
+    }).eq('uuid', loggedUserId || userId);
+};
 
   return (
     <div className="w-full h-full flex flex-col gap-[48px] justify-center">
@@ -103,11 +127,13 @@ export const LoginForm = () => {
           <Button
             icon={iconGoogle}
             kind="secondary"
+            onClickFn={() => loginWithProvider('google')}
             customClasses="h-lg text-lg font-satoshiBold"
           />
           <Button
             icon={iconApple}
             kind="secondary"
+            onClickFn={() => loginWithProvider('apple')}
             customClasses="h-lg text-lg font-satoshiBold"
           />
         </div>

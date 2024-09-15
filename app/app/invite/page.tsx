@@ -1,8 +1,7 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { supabase } from "../utils/supabase";
-import { getLoggedUserProfile } from "../utils/user";
 function InvitePage() {
   // http://babol.app/app/invite?c=te6d8l2bx9
   const router = useRouter();
