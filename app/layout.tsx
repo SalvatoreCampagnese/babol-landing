@@ -28,7 +28,7 @@ export default function RootLayout({
         <Script src="/animation.js" />
       </head>
       <IubendaScripts />
-      <body>
+      <body className="overflow-x-hidden">
         <Suspense>{children}</Suspense>
       </body>
     </html>

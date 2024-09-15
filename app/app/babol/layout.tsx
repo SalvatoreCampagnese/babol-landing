@@ -13,7 +13,7 @@ export default function UserLayout({
   return (
     <html lang="en">
       <head></head>
-      <body className="relative bg-surfaceBlack min-h-screen overflow-x-hidden max-w-full p-[24px] ">
+      <body className="relative bg-surfaceBlack min-h-screen overflow-x-hidden max-w-full p-[24px]">
         <div
           className="flex flex-col gap-lg overflow-x-hidden"
           id="wrapper"
