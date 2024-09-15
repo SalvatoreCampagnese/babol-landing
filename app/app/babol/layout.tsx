@@ -1,4 +1,5 @@
 "use client"
+import { Suspense } from "react";
 import IubendaScripts from "../../components/IubendaScripts";
 import { Footer } from "../components/Footer";
 import { HeaderDashboard } from "../components/HeaderDashboard";
@@ -20,7 +21,7 @@ export default function UserLayout({
           <HeaderDashboard />
           <IubendaScripts />
           <ReduxProvider>
-            {children}
+            <Suspense>{children}</Suspense>
           </ReduxProvider>
         </div>
         <Footer />
