@@ -74,7 +74,7 @@ export const ResetPasswordSent = () => {
             }}>request a new link</span>
           </div>
 
-          <Button text="Go to login" kind="primary" onClickFn={() => window.location.href = "/app/login?step=login"} />
+          <Button text="Go to login" kind="primary" onClickFn={() => window.location.href = "?step=login"} />
         </div>
       </>}
       {redirect && <div className="flex flex-col gap-md gap-[38px]">

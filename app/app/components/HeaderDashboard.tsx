@@ -6,6 +6,8 @@ import iconBell from "../assets/icon-bell.svg";
 import iconSettings from "../assets/icon-settings.svg";
 import { useEffect, useState } from "react";
 import { getLoggedUserProfile, logout } from "../utils/user";
+import { Button } from "./Button";
+import Link from "next/link";
 export const HeaderDashboard = () => {
     const [userData, setUserData] = useState<any>(null);
     const [openSubMenu, setOpenSubMenu] = useState(false);
@@ -29,7 +31,7 @@ export const HeaderDashboard = () => {
                     }
                 }/>
             </h1>
-            <div className="flex flex-row gap-lg">
+            {userData ? <div className="flex flex-row gap-lg">
                 <Image src={iconBell} alt="Babol" width={24} height={24} />
                 <Image src={process.env.NEXT_PUBLIC_SUPABASE_USER_URL_STORAGE+"/"+userData?.uuid+"/avatar.jpeg"} alt="Babol" width={40} height={40} className="rounded-full cursor-pointer" onClick={() => {
                     setOpenSubMenu(!openSubMenu);
@@ -43,7 +45,9 @@ export const HeaderDashboard = () => {
                         </div>
                     </div>
                 }
-            </div>
+            </div> : <div className="flex flex-row gap-lg">
+                <Link href={"Download the app"} className="font-satoshi text-white" >Download the app</Link>
+                </div>}
         </div>
     );
 }

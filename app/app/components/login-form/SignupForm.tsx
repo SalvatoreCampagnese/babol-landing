@@ -9,14 +9,41 @@ import ImageInput from "./ImageInput";
 import { useAppDispatch, useAppSelector } from "../../lib/store";
 import { setUserData } from "../../lib/signupSlice";
 import { updateProfile } from "../../utils/user";
+import { supabase } from "../../utils/supabase";
+import { decode } from "base64-arraybuffer";
+import { useRouter } from "next/navigation";
 export const SignupForm = () => {
   const [securityLevel, setSecurityLevel] = useState(0);
-  const [image, setImage] = useState(null);
+  const router = useRouter();
+  const [image, setImage] = useState<string | null>(null);
   const userData = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
+  const uploadPhoto = async () => {
+    const { data: userData, error: userError } = await supabase.auth.getUser();
+    if (userError) throw { code: userError.status, message: userError.message };
+    console.log(image, userData.user.id);
+    if (!image) return;
+    const base64 = image.split('base64,')[1]
+    const buffer = Buffer.from(base64, 'base64');
+
+    const { error: uploadError } = await supabase.storage.from('profile_photos').upload(`${userData.user.id}/avatar.jpeg`, buffer, {
+      contentType: 'image/jpeg',
+      upsert: true
+    })
+    if (uploadError) throw { code: uploadError.cause, message: uploadError.message };
+  }
+
   const signupWithEmail = async (email: string) => {
-    await updateProfile(userData.password, image);
-    window.location.href = "/app/dashboard";
+    // upload image into bucket
+    try{
+      await uploadPhoto();
+      await updateProfile(userData.password);
+    }catch(e){
+      window.alert(e);
+      console.log(e);
+      return;
+    }
+    router.replace("/app/dashboard");
   };
   useEffect(() => {
     let securityLevel = 0;
@@ -38,7 +65,6 @@ export const SignupForm = () => {
     }
     setSecurityLevel(securityLevel);
   }, [userData.password]);
-  const [email, setEmail] = useState("");
   return (
     <div className="w-full h-full flex flex-col gap-[48px] justify-center">
       <HeaderBox icon={iconLogin} />
@@ -51,7 +77,7 @@ export const SignupForm = () => {
           <div className="flex flex-row gap-2">
             <Input
               placeholder="First name"
-              onChangeFn={(newValue:string) => 
+              onChangeFn={(newValue: string) =>
                 dispatch(setUserData({ ...userData, firstName: newValue }))
               }
               value={userData.firstName}
@@ -60,7 +86,7 @@ export const SignupForm = () => {
 
             <Input
               placeholder="Last name"
-              onChangeFn={(newValue:string) => 
+              onChangeFn={(newValue: string) =>
                 dispatch(setUserData({ ...userData, lastName: newValue }))
               }
               value={userData.lastName}
@@ -77,7 +103,7 @@ export const SignupForm = () => {
           <div className="flex flex-row gap-2 justify-between">
             <Input
               placeholder="Day"
-              onChangeFn={(newValue:number) => 
+              onChangeFn={(newValue: number) =>
                 dispatch(setUserData({ ...userData, birthDay: newValue }))
               }
               max={31}
@@ -88,7 +114,7 @@ export const SignupForm = () => {
             />
             <Input
               placeholder="Month"
-              onChangeFn={(newValue:number) => 
+              onChangeFn={(newValue: number) =>
                 dispatch(setUserData({ ...userData, birthMonth: newValue }))
               }
               min={1}
@@ -99,7 +125,7 @@ export const SignupForm = () => {
             />
             <Input
               placeholder="Year"
-              onChangeFn={(newValue:number) => 
+              onChangeFn={(newValue: number) =>
                 dispatch(setUserData({ ...userData, birthYear: newValue }))
               }
               min={1990}
@@ -119,7 +145,7 @@ export const SignupForm = () => {
           <div className="flex flex-col gap-2 justify-between">
             <Input
               placeholder="Password"
-              onChangeFn={(newValue:number) => 
+              onChangeFn={(newValue: number) =>
                 dispatch(setUserData({ ...userData, password: newValue }))
               }
               value={userData.password}
@@ -129,7 +155,7 @@ export const SignupForm = () => {
               {
                 /* Password strength indicator */
                 Array.from({ length: 4 }).map((_, index) => (
-                  <div key={index} className={"w-3/12 h-2  rounded-lg "+(index < securityLevel ? "bg-green-400" : "bg-surfaceExtraLight")} />
+                  <div key={index} className={"w-3/12 h-2  rounded-lg " + (index < securityLevel ? "bg-green-400" : "bg-surfaceExtraLight")} />
                 ))
               }
             </div>

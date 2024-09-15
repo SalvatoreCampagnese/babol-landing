@@ -1,12 +1,9 @@
-import type { Metadata } from "next";
+"use client"
 import IubendaScripts from "../../components/IubendaScripts";
 import { Footer } from "../components/Footer";
 import { HeaderDashboard } from "../components/HeaderDashboard";
+import ReduxProvider from "../StoreProvider";
 
-export const metadata: Metadata = {
-  title: "Babol App",
-  description: "Organize your events in a new way! Everything in one place!",
-};
 export default function UserLayout({
   children,
 }: Readonly<{
@@ -22,7 +19,9 @@ export default function UserLayout({
         >
           <HeaderDashboard />
           <IubendaScripts />
-          {children}
+          <ReduxProvider>
+            {children}
+          </ReduxProvider>
         </div>
         <Footer />
       </body>

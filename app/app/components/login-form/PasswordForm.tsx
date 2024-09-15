@@ -26,7 +26,8 @@ export const PasswordForm = () => {
         if (response.error) {
             throw response.error;
         }
-        window.location.href = "/app/dashboard";
+        // if window path includes "babol"
+        window.location.reload();
       
     } catch (e: any) {
       window.alert(e);
@@ -47,7 +48,7 @@ export const PasswordForm = () => {
     await supabase.auth.resetPasswordForEmail(userData.email, {
         redirectTo: window.location.origin + "/app/login?step=reset-password&email=" + userData.email+ "&redirect=true"
     });
-    router.push('/app/login?step=reset-password&email=' + userData.email);
+    router.push('?step=reset-password&email=' + userData.email);
   }
   return (
     <div className="w-full h-full flex flex-col gap-[48px] justify-center">

@@ -38,7 +38,7 @@ export const logout = async () => {
   return supabase.auth.signOut();
 }
 
-export const updateProfile = async (profile: any, avatar:any) => {
+export const updateProfile = async (profile: any) => {
   // password change 
   if(profile.password) {
       await supabase.auth.updateUser({ password: profile.password });

@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import iconImage from '../../assets/icon-upload-photo.svg';
 
-export default function ImageInput() {
+export default function ImageInput({image, setImage}:any) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageBase64, setImageBase64] = useState(null);
 
@@ -13,6 +13,7 @@ export default function ImageInput() {
       reader.onloadend = () => {
         setImageBase64(reader.result);
         setSelectedImage(reader.result);
+        setImage(reader.result);
       };
       reader.readAsDataURL(file);
     }
