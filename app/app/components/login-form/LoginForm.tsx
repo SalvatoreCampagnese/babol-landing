@@ -75,25 +75,12 @@ export const LoginForm = () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: window.location.origin + "/app/login?step=login"
+        redirectTo: "com.babol.app://"+window.location.origin + "/app/login?step=login",
+        skipBrowserRedirect: true,
       }
     });
     if (error) { console.log(error.message); return error.message; }
-
   }
-
-  const modifyProvider = async (provider: 'google' | 'apple', status: boolean, userId?: string) => {
-    let loggedUserId;
-    if (!userId) {
-        const { data: logged_user, error: error_user } = await supabase.auth.getUser();
-        if (error_user) throw error_user.message;
-        loggedUserId = logged_user.user.id
-    }
-
-    return supabase.from('profiles').update({
-        [provider]: status,
-    }).eq('uuid', loggedUserId || userId);
-};
 
   return (
     <div className="w-full h-full flex flex-col gap-[48px] justify-center">
