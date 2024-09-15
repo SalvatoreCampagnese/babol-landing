@@ -10,7 +10,10 @@ export const getPartecipantBabols = async () => {
     // Get logged user
     const { data: loggedUser } = await getLoggedUserProfile();
     console.log(loggedUser);
-    if(!loggedUser) return [];
+    if(!loggedUser) return {
+        data: [],
+        error: "not_logged"
+    };
 
     // Get bubbles
     return supabase.from("babol_partecipants")

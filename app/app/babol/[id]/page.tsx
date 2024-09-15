@@ -1,15 +1,12 @@
 "use client";
 import Image from "next/image";
 import { Button } from "../../components/Button";
-import { TabsContainer } from "../../components/dashboard/TabContainer";
 import EnvelopeIcon from "../../assets/icon-envelope.svg";
 import ShareIcon from "../../assets/icon-share.svg";
 import { Iframe } from "../../components/babol-detail/Iframe";
-import bg1 from "../../assets/babol-bg/bg1.png";
 import { useParams, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { getBabolExtrInfo, joinBabol } from "../../utils/babol";
-import { getLoggedUserProfile } from "../../utils/user";
 import ModalLogin from "../../components/modals/ModalLogin";
 import { supabase } from "../../utils/supabase";
 const Page = () => {
