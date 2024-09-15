@@ -11,9 +11,6 @@ function InvitePage() {
 
   useEffect(() => {
     const fetchBabolByInvite = async () => {
-      const loggedUser = await getLoggedUserProfile();
-      if (!loggedUser) router.replace("/app/login");
-
       const { data: babol, error: errorBabol } = await supabase
         .from("babols")
         .select("id")
