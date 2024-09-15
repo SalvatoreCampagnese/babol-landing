@@ -143,3 +143,8 @@ input {
     }
   }
 }
+
+a{
+  @apply font-satoshi;
+  @apply text-infoMain;
+}
