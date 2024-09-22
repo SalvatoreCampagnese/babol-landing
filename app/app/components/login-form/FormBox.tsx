@@ -1,18 +1,16 @@
 "use client";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { Suspense, use, useEffect, useRef, useState } from "react";
 import { LoginForm } from "./LoginForm";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { PinForm } from "./PinForm";
 import { SignupForm } from "./SignupForm";
 import { BackButton } from "./BackButton";
-import { getUserData, setUserData } from '../../lib/signupSlice'
+import { getUserData, setUserData } from "../../lib/signupSlice";
 import { useAppDispatch, useAppSelector } from "../../lib/store";
 import { PasswordForm } from "./PasswordForm";
 import { ResetPasswordSent } from "./ResetPasswordSent";
 
 export const FormBox = () => {
-  // Initialize the store with the product information
-  // Based on query param "step" we render different components
   const params = useSearchParams();
   const dispatch = useAppDispatch();
   const [step, setStep] = useState<string>("login");
@@ -28,7 +26,6 @@ export const FormBox = () => {
     //console.log(data);
     setStep(params?.get("step") || "login");
   }, [params]);
-
 
   return (
     <div className="sm:w-3/6 md:w-2/6 w-full">
@@ -47,10 +44,14 @@ export const FormBox = () => {
         )}
         <div className="bg-[#fff] rounded-[24px] px-md sm:px-xxxl sm:py-xxl py-xl flex justify-center items-center w-full">
           {step === "login" && <LoginForm />}
-          {step === "pin" && <PinForm/>}
+          {step === "pin" && <PinForm />}
           {step === "signup" && <SignupForm />}
           {step === "password" && <PasswordForm />}
-          {step === "reset-password" && <Suspense><ResetPasswordSent /></Suspense>}
+          {step === "reset-password" && (
+            <Suspense>
+              <ResetPasswordSent />
+            </Suspense>
+          )}
         </div>
       </div>
     </div>

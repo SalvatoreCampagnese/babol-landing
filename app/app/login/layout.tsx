@@ -1,5 +1,4 @@
 "use client"
-import type { Metadata } from "next";
 import IubendaScripts from "../../components/IubendaScripts";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";

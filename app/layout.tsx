@@ -1,22 +1,18 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+"use client"
 import "./globals.css";
 import Script from "next/script";
 import IubendaScripts from "./components/IubendaScripts";
+import { usePathname } from "next/navigation";
 import { Suspense } from "react";
 
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Babol App",
-  description: "Organize your events in a new way! Everything in one place!",
-};
-const myPolicy = 63663365;
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
+  const pathname = usePathname();
+  const isDashboard = pathname.startsWith("/dashboard");
   return (
     <html lang="en">
       <head>
@@ -27,8 +23,8 @@ export default function RootLayout({
 
         <Script src="/animation.js" />
       </head>
-      <IubendaScripts />
-      <body className="overflow-x-hidden">
+      <body className={isDashboard ? "relative bg-surfaceBlack min-h-screen overflow-x-hidden max-w-full md:p-[24px] p-2" : "overflow-x-hidden bg-app-gradient min-h-screen"}>
+        <IubendaScripts />
         <Suspense>{children}</Suspense>
       </body>
     </html>

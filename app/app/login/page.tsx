@@ -4,7 +4,7 @@ import { supabase } from "../utils/supabase";
 import { redirect } from 'next/navigation'
 export default async function App() {
   const isLogged = await supabase.auth.getSession();
-  console.log(isLogged);
+  console.log("isLogged", isLogged);
   if (isLogged?.data?.session) {
     redirect("/app/dashboard");
   }

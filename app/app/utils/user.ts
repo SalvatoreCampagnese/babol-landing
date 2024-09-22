@@ -23,8 +23,7 @@ export const loginWithEmail = async (email: string, password: string) => {
 export const getLoggedUserProfile = async () => {
   // get supabase logged user
   const { data: logged_user, error: error_user } = await supabase.auth.getUser();
-  console.log(logged_user);
-
+  
   if (!logged_user?.user || error_user?.message) throw {
       status: 401,
       message: 'Unauthorized'

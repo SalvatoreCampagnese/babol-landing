@@ -17,7 +17,7 @@ export const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigation = useRouter();
   const password = process.env.NEXT_PUBLIC_USER_DEFAULT_PASSWORD || "";
-  const userState = useAppSelector((state) => state.user);
+  const userState = useAppSelector((state:any) => state.user);
   const dispatch = useAppDispatch();
 
   const _signupWithEmail = async () => {
@@ -51,8 +51,6 @@ export const LoginForm = () => {
     if (error) throw error.message;
     navigation.push('?step=pin');
   }
-
-
   const handleExistingAccount = async (hasPasswordChanged: boolean, providerType?: 'google' | 'apple') => {
     if (!hasPasswordChanged) {
       if (providerType) {
@@ -67,7 +65,7 @@ export const LoginForm = () => {
       if (error) { console.log(error.message); return error.message; }
     }
 
-    navigation.push('?step=password');
+    navigation.push('/app/dashboard');
   }
 
   const loginWithProvider = async (provider: 'google' | 'apple') => {
@@ -75,8 +73,7 @@ export const LoginForm = () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: "com.babol.app://"+window.location.origin + "/app/login?step=login",
-        skipBrowserRedirect: true,
+        redirectTo: window.location.origin + "/app/login?step=login"
       }
     });
     if (error) { console.log(error.message); return error.message; }
