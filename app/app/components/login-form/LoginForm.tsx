@@ -25,13 +25,12 @@ export const LoginForm = () => {
     try {
       dispatch(setUserData({ email, password }));
       const { data: user, error } = await getUserByEmail(email);
+      console.log('user', user, error)
       if (error?.code === 'PGRST116') {
         await handleNewAccount();
         return;
       }
       if (error) throw error.message;
-
-      console.log(user && !user.password_changed && (user.google || user.apple));
 
       if (user && !user.password_changed && (user.google || user.apple)) {
         await handleExistingAccount(false, user.apple ? 'apple' : user.google ? 'google' : undefined);
@@ -65,7 +64,7 @@ export const LoginForm = () => {
       if (error) { console.log(error.message); return error.message; }
     }
 
-    navigation.push('/app/dashboard');
+    navigation.push('?step=password');
   }
 
   const loginWithProvider = async (provider: 'google' | 'apple') => {

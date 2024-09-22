@@ -24,7 +24,7 @@ export const TabsContainer = () => {
     const fetchData = async () => {
       const babols = await getPartecipantBabols();
       if (!babols?.length) {
-        //setIsLoading(false);
+        setIsLoading(false);
         return;
       }
       setBabols(babols);
@@ -42,7 +42,7 @@ export const TabsContainer = () => {
       setPastBabols(
         babols.filter((babol: any) => new Date(babol.to_date) < new Date())
       );
-      //setIsLoading(false);
+      setIsLoading(false);
     };
     fetchData();
   }, []);
@@ -214,8 +214,8 @@ export const TabsContainer = () => {
       <p>To create a new babol download the app</p>
     </div>
   ) : (
-    <div className="flex flex-col w-full justify-center gap-xl">
-      <div className="flex flex-row gap-xs w-full justify-center">
+    <div className="flex flex-col w-full justify-center gap-xl min-h-full overflow-visible md:px-48">
+      <div className="flex flex-row gap-xs w-full justify-center h-full">
         {tabs.map((tab, index) => {
           return (
             <div
@@ -234,7 +234,7 @@ export const TabsContainer = () => {
           );
         })}
       </div>
-      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 min-h-full">
+      <div className="grid gap-lg grid-cols-1 sm:grid-cols-2 md:grid-cols-3 min-h-full">
         {[1, 2, 3, 4].map((item) => (
           <BabolSkeleton key={item} />
         ))}

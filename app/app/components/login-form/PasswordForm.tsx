@@ -24,10 +24,10 @@ export const PasswordForm = () => {
         console.log(userData, password);
         const response = await loginWithEmail(userData.email, password);
         if (response.error) {
+            console.log(response)
             throw response.error;
         }
-        // if window path includes "babol"
-        window.location.reload();
+        router.replace('/app/dashboard')
       
     } catch (e: any) {
       window.alert(e);

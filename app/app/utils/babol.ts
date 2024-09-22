@@ -4,7 +4,6 @@ import { getLoggedUserProfile } from "./user";
 
 export const getPartecipantBabols = async () => {
   try {
-    const dataa = await supabase.auth.getSession();
     // Get logged user
     const { data: loggedUser } = await getLoggedUserProfile();
     if (!loggedUser) {
@@ -22,7 +21,7 @@ export const getPartecipantBabols = async () => {
 
     return data;
   } catch (e) {
-    console.log(e);
+    window.location.replace('/app/login')
     return [];
   }
 };
