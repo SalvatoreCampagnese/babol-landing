@@ -14,7 +14,7 @@ export default function Home() {
             if (data.session) {
                 router.replace("/app/dashboard");
             }else{
-                router.replace("/login");
+                router.replace("/app/login");
             }
         }
         fetchSession();
