@@ -68,7 +68,7 @@ export const LoginForm = () => {
   }
 
   const loginWithProvider = async (provider: 'google' | 'apple') => {
-    console.log(window.location.origin)
+    const redirecTo = provider == 'google'? window.location.origin+"/app/dashboard" : window.location.origin+"/auth/callback"
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options:{

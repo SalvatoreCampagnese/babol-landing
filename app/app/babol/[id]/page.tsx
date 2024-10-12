@@ -3,18 +3,22 @@ import Image from "next/image";
 import { Button } from "../../components/Button";
 import EnvelopeIcon from "../../assets/icon-envelope.svg";
 import ShareIcon from "../../assets/icon-share.svg";
+import CloseIcon from "../../assets/icon-close-white.svg";
 import { Iframe } from "../../components/babol-detail/Iframe";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { getBabolExtrInfo, joinBabol } from "../../utils/babol";
 import ModalLogin from "../../components/modals/ModalLogin";
 import { supabase } from "../../utils/supabase";
+import ModalInfoBabol from "../../components/modals/ModalInfoBabol";
 const Page = () => {
+  const router = useRouter();
   const [babol, setBabol] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
   const params = useParams<{ id: string }>();
   const searchParams = useSearchParams();
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showModalInfo, setShowModalInfo] = useState(false)
   useMemo(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -26,10 +30,13 @@ const Page = () => {
       setBabol(data);
 
       // If invite_code in url and invite_url is = data.invite_code
-      if (searchParams.get("invite_code") === data?.invite_code && userData?.data?.session) {
+      if (
+        searchParams.get("invite_code") === data?.invite_code &&
+        userData?.data?.session
+      ) {
         // Join babol
         const joined = await joinBabol(parseInt(params.id));
-        switch(joined){
+        switch (joined) {
           case "error":
             window.alert("Error joining babol");
             break;
@@ -48,20 +55,35 @@ const Page = () => {
   }, [params.id]);
   return (
     (!isLoading && babol && (
-      <div className="flex flex-col md:flex-row md:items-start justify-center gap-[32px]">
+      <div className="flex flex-col md:flex-row md:items-start justify-center gap-2 md:gap-[32px]">
         {showLoginModal && <ModalLogin />}
-        <div className="md:w-2/6 w-full gap-xl">
+        {showModalInfo && <ModalInfoBabol show={showModalInfo} onChange={setShowModalInfo} babolData={babol}/>}
+        <div className="md:w-2/6 w-full gap-0 md:gap-xl">
           <>
-            <h1 className="font-satoshiBold text-xxxl">{babol.name}</h1>
-            <span>{babol.description}</span>
-            <Button
-              kind="link"
-              text="Show more info"
-              customClasses="text-white"
-            />
+            <div className="flex flex-row justify-between">
+              <h1 className="font-satoshiBold text-xxxl">{babol.name}</h1>
+              <Image
+                src={CloseIcon}
+                width={35}
+                height={35}
+                alt="close"
+                className="block md:hidden"
+                onClick={() => {
+                  router.push("/app/dashboard");
+                }}
+              />
+            </div>
+            <span className="hidden md:block">{babol.description}</span>
+            <div className="hidden md:block">
+              <Button
+                kind="link"
+                text="Show more info"
+                customClasses="text-white"
+              />s
+            </div>
           </>
 
-          <div className="gap-xs">
+          <div className="gap-xs hidden md:block">
             <p>Hosted by</p>
             <div className="flex flex-row items-center gap-xs">
               <Image
@@ -82,17 +104,24 @@ const Page = () => {
             </div>
           </div>
 
-          <div className="flex flex-row gap-xs mt-[32px]">
-            <div className="flex flex-col gap-xxs justify-center items-center p-sm rounded-md bg-surfaceExtraDark w-[100px] cursor-pointer">
+          <div className="flex flex-row gap-xs mt-[10px] md:mt-[32px]">
+            <div className="flex flex-col gap-xxs justify-center items-center p-sm rounded-md bg-surfaceExtraDark w-1/2 cursor-pointer" onClick={() => {
+              setShowModalInfo(true)
+            }}>
               <Image src={EnvelopeIcon} alt="logo" height={24} width={24} />
-              <span>Contact</span>
+              <span>Info</span>
             </div>
-            <div className="flex flex-col gap-xxs justify-center items-center p-sm rounded-md bg-surfaceExtraDark w-[100px] cursor-pointer">
+            <div className="flex flex-col gap-xxs justify-center items-center p-sm rounded-md bg-surfaceExtraDark w-1/2 cursor-pointer" onClick={() => {
+              navigator.share({
+                url: window.location.href,
+                text: "Hi! Take a look at this babol!"
+              })
+            }}>
               <Image src={ShareIcon} alt="logo" height={24} width={24} />
               <span>Share</span>
             </div>
           </div>
-          <p className="text-textInvertedSecondary text-md  mt-[32px]">
+          <p className="text-textInvertedSecondary text-md mt-0 md:mt-[32px] hidden md:block">
             Report event
           </p>
         </div>
@@ -109,3 +138,4 @@ const Page = () => {
   );
 };
 export default Page;
+ 
