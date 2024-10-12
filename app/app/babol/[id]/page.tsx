@@ -79,7 +79,7 @@ const Page = () => {
                 kind="link"
                 text="Show more info"
                 customClasses="text-white"
-              />s
+              />
             </div>
           </>
 
