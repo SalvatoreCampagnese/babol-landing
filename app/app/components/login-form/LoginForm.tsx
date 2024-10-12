@@ -70,7 +70,10 @@ export const LoginForm = () => {
   const loginWithProvider = async (provider: 'google' | 'apple') => {
     console.log(window.location.origin)
     const { error } = await supabase.auth.signInWithOAuth({
-      provider
+      provider,
+      options:{
+        redirectTo: window.location.origin+"/app/dashboard"
+      }
     });
     if (error) { console.log(error.message); return error.message; }
   }
