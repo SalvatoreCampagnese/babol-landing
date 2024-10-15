@@ -13,6 +13,7 @@ import { supabase } from "../../utils/supabase";
 import ModalInfoBabol from "../../components/modals/ModalInfoBabol";
 import { toast } from "react-toastify";
 import { getLoggedUserProfile } from "../../utils/user";
+import ModalError from "../../components/modals/ModalInfo";
 
 const Page = () => {
   const router = useRouter();
@@ -38,7 +39,10 @@ const Page = () => {
         .select("*")
         .eq("profileID", loggedUser.id)
         .eq("babolID", params.id);
+
       if (partecipant?.length){
+        
+      setIsLoading(false);
         return;
       }else if(searchParams.get("invite_code") !== data?.invite_code){
         toast.error("Invite code not valid");
@@ -74,11 +78,18 @@ const Page = () => {
       <div className="flex flex-col md:flex-row md:items-start justify-center gap-2 md:gap-[32px]">
         {showLoginModal && <ModalLogin />}
         {showModalInfo && (
+          <>
+          <div className="md:hidden block">
           <ModalInfoBabol
             show={showModalInfo}
             onChange={setShowModalInfo}
             babolData={babol}
           />
+          </div>
+          <div className="hidden md:block">
+           <ModalError closeFn={() => { setShowModalInfo(false)}} babolData={babol} />
+          </div>
+          </>
         )}
         <div className="md:w-2/6 w-full gap-0 md:gap-xl">
           <>

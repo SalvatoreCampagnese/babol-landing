@@ -76,12 +76,8 @@ const IubendaScripts = () => {
     document.body.appendChild(script6);
 
     return () => {
-      document.body.removeChild(script1);
-      document.body.removeChild(script2);
-      document.body.removeChild(script3);
-      document.body.removeChild(script4);
-      document.body.removeChild(script5);
-      document.body.removeChild(script6);
+      if(!document.body)return
+      script1.parentNode?.removeChild(script1)
     };
   }, []);
 
