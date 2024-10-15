@@ -1,3 +1,4 @@
+"use client"
 import { TabsContainer } from "../components/dashboard/TabContainer";
 
 const Page = () => {

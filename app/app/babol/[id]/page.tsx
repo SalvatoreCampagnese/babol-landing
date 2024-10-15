@@ -6,11 +6,14 @@ import ShareIcon from "../../assets/icon-share.svg";
 import CloseIcon from "../../assets/icon-close-white.svg";
 import { Iframe } from "../../components/babol-detail/Iframe";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getBabolExtrInfo, joinBabol } from "../../utils/babol";
 import ModalLogin from "../../components/modals/ModalLogin";
 import { supabase } from "../../utils/supabase";
 import ModalInfoBabol from "../../components/modals/ModalInfoBabol";
+import { toast } from "react-toastify";
+import { getLoggedUserProfile } from "../../utils/user";
+
 const Page = () => {
   const router = useRouter();
   const [babol, setBabol] = useState<any>(null);
@@ -18,8 +21,8 @@ const Page = () => {
   const params = useParams<{ id: string }>();
   const searchParams = useSearchParams();
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showModalInfo, setShowModalInfo] = useState(false)
-  useMemo(() => {
+  const [showModalInfo, setShowModalInfo] = useState(false);
+  useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       const userData = await supabase.auth.getSession();
@@ -28,6 +31,19 @@ const Page = () => {
       }
       const { data } = await getBabolExtrInfo(parseInt(params.id));
       setBabol(data);
+
+      const { data: loggedUser } = await getLoggedUserProfile();
+      const { data: partecipant, error: errorPartecipants } = await supabase
+        .from("babol_partecipants")
+        .select("*")
+        .eq("profileID", loggedUser.id)
+        .eq("babolID", params.id);
+      if (partecipant?.length){
+        return;
+      }else if(searchParams.get("invite_code") !== data?.invite_code){
+        toast.error("Invite code not valid");
+        return router.replace('/app/dashboard')
+      }
 
       // If invite_code in url and invite_url is = data.invite_code
       if (
@@ -38,13 +54,13 @@ const Page = () => {
         const joined = await joinBabol(parseInt(params.id));
         switch (joined) {
           case "error":
-            window.alert("Error joining babol");
+            toast.error("Error joining babol");
             break;
           case "success":
-            window.alert("Successfully joined babol");
+            toast.success("Successfully joined babol");
             break;
           case "already_joined":
-            // window.alert("Already joined babol");
+            // toast.success("You are already into the babol!");
             break;
         }
       }
@@ -57,7 +73,13 @@ const Page = () => {
     (!isLoading && babol && (
       <div className="flex flex-col md:flex-row md:items-start justify-center gap-2 md:gap-[32px]">
         {showLoginModal && <ModalLogin />}
-        {showModalInfo && <ModalInfoBabol show={showModalInfo} onChange={setShowModalInfo} babolData={babol}/>}
+        {showModalInfo && (
+          <ModalInfoBabol
+            show={showModalInfo}
+            onChange={setShowModalInfo}
+            babolData={babol}
+          />
+        )}
         <div className="md:w-2/6 w-full gap-0 md:gap-xl">
           <>
             <div className="flex flex-row justify-between">
@@ -105,18 +127,24 @@ const Page = () => {
           </div>
 
           <div className="flex flex-row gap-xs mt-[10px] md:mt-[32px]">
-            <div className="flex flex-col gap-xxs justify-center items-center p-sm rounded-md bg-surfaceExtraDark w-1/2 cursor-pointer" onClick={() => {
-              setShowModalInfo(true)
-            }}>
+            <div
+              className="flex flex-col gap-xxs justify-center items-center p-sm rounded-md bg-surfaceExtraDark w-1/2 cursor-pointer"
+              onClick={() => {
+                setShowModalInfo(true);
+              }}
+            >
               <Image src={EnvelopeIcon} alt="logo" height={24} width={24} />
               <span>Info</span>
             </div>
-            <div className="flex flex-col gap-xxs justify-center items-center p-sm rounded-md bg-surfaceExtraDark w-1/2 cursor-pointer" onClick={() => {
-              navigator.share({
-                url: window.location.href,
-                text: "Hi! Take a look at this babol!"
-              })
-            }}>
+            <div
+              className="flex flex-col gap-xxs justify-center items-center p-sm rounded-md bg-surfaceExtraDark w-1/2 cursor-pointer"
+              onClick={() => {
+                navigator.share({
+                  url: window.location.href,
+                  text: "Hi! Take a look at this babol!",
+                });
+              }}
+            >
               <Image src={ShareIcon} alt="logo" height={24} width={24} />
               <span>Share</span>
             </div>
@@ -138,4 +166,3 @@ const Page = () => {
   );
 };
 export default Page;
- 

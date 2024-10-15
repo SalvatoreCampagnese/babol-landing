@@ -1,9 +1,9 @@
 "use client"
-import { Suspense } from "react";
 import IubendaScripts from "../../components/IubendaScripts";
 import { Footer } from "../components/Footer";
 import { HeaderDashboard } from "../components/HeaderDashboard";
-import ReduxProvider from "../StoreProvider";
+import { Bounce, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function UserLayout({
   children,
@@ -20,9 +20,20 @@ export default function UserLayout({
         >
           <HeaderDashboard />
           <IubendaScripts />
-          <ReduxProvider>
-            <Suspense>{children}</Suspense>
-          </ReduxProvider>
+          {children}
+          <ToastContainer 
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            toastClassName={"bg-surfaceBlack"}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+            transition={Bounce}/>
         </div>
         <Footer />
       </body>

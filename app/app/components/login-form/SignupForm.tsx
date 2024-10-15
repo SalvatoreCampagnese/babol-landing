@@ -12,6 +12,7 @@ import { updateProfile } from "../../utils/user";
 import { supabase } from "../../utils/supabase";
 import { decode } from "base64-arraybuffer";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 export const SignupForm = () => {
   const [securityLevel, setSecurityLevel] = useState(0);
   const router = useRouter();
@@ -39,7 +40,6 @@ export const SignupForm = () => {
       await uploadPhoto();
       await updateProfile(userData.password);
     }catch(e){
-      window.alert(e);
       console.log(e);
       return;
     }

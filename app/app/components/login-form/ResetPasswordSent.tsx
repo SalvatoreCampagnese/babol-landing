@@ -10,6 +10,7 @@ import iconGoogle from "../../assets/icon-google.svg";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { supabase } from "../../utils/supabase";
+import { toast } from "react-toastify";
 
 export const ResetPasswordSent = () => {
   const [email, setEmail] = useState("");
@@ -65,7 +66,7 @@ export const ResetPasswordSent = () => {
           <div className="p-sm bg-surfaceAccentExtraLight rounded-md w-full items-center text-black">
             Not in your inbox? Check your spam folder or <span className="font-bold underline text-black cursor-pointer" onClick={() => {
               if (!email) {
-                window.alert('Email is required');
+                toast.error('Email is required');
                 return;
               }
               supabase.auth.resetPasswordForEmail(email, {
@@ -100,15 +101,15 @@ export const ResetPasswordSent = () => {
         </div>
         <Button text="Reset password" kind="primary" onClickFn={() => {
           if (password.length < 8) {
-            window.alert('Password must be at least 8 characters long');
+            toast.error('Password must be at least 8 characters long');
             return;
           }
           supabase.auth.updateUser({ password }).then((response) => {
             if (response.error) {
-              window.alert(response.error.message);
+              toast.error(response.error.message);
               return;
             }
-            window.alert('Password updated successfully');
+            toast.success('Password updated successfully');
             window.location.href = "/app/login?step=login";
           });
         }} />

@@ -1,10 +1,9 @@
-"use client"
-import type { Metadata } from "next";
+"use client";
 import IubendaScripts from "../../components/IubendaScripts";
 import { Footer } from "../components/Footer";
 import { HeaderDashboard } from "../components/HeaderDashboard";
-import { Suspense } from "react";
-
+import { Bounce, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function UserLayout({
   children,
 }: Readonly<{
@@ -14,14 +13,23 @@ export default function UserLayout({
     <html lang="en">
       <head></head>
       <body className="relative bg-surfaceBlack min-h-screen overflow-x-hidden max-w-full md:p-[24px] p-2">
-        <div
-          className="flex flex-col gap-lg overflow-x-hidden"
-          id="wrapper"
-        >
+        <div className="flex flex-col gap-lg overflow-x-hidden" id="wrapper">
           <HeaderDashboard />
           <IubendaScripts />
-
-          <Suspense>{children}</Suspense>
+          {children}
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            transition={Bounce}
+          />
         </div>
         <Footer />
       </body>

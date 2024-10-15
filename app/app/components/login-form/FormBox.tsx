@@ -23,7 +23,6 @@ export const FormBox = () => {
     profilePicture: "",
   });
   useEffect(() => {
-    //console.log(data);
     setStep(params?.get("step") || "login");
   }, [params]);
 

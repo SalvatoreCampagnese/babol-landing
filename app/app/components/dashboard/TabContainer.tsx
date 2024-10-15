@@ -9,236 +9,265 @@ import emptyBabols from "../../assets/empty-babols.svg";
 import emptyCurrent from "../../assets/empty-current.svg";
 import emptyPast from "../../assets/empty-past.svg";
 import emptyUpcoming from "../../assets/empty-upcoming.svg";
-import emptyState from "../../assets/empty-state.svg";
 import Image from "next/image";
 import { BabolSkeleton } from "./BabolSkeleton";
+const useCachedFetch = (fetchFunction: Function) => {
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      const cachedData = sessionStorage.getItem("cachedBabols");
+      if (cachedData) {
+        setData(JSON.parse(cachedData)); // Use cached data
+        setIsLoading(false);
+        return;
+      }
+      const fetchedData = await fetchFunction();
+      sessionStorage.setItem("cachedBabols", JSON.stringify(fetchedData)); // Cache the data
+      setData(fetchedData);
+      setIsLoading(false);
+    };
+
+    fetchData();
+  }, [fetchFunction]);
+
+  return { data, isLoading };
+};
+
 export const TabsContainer = () => {
   const tabs = ["All", "Current", "Upcoming", "Past"];
   const [activeTab, setActiveTab] = useState("All");
-  const [isLoading, setIsLoading] = useState(true);
-  const [babols, setBabols] = useState<any[]>([]);
+  const { data: babols, isLoading }: any = useCachedFetch(getPartecipantBabols); // Use custom hook
+
   const [currentBabols, setCurrentBabols] = useState<any[]>([]);
   const [upcomingBabols, setUpcomingBabols] = useState<any[]>([]);
   const [pastBabols, setPastBabols] = useState<any[]>([]);
   useMemo(() => {
-    const fetchData = async () => {
-      const babols = await getPartecipantBabols();
-      if (!babols?.length) {
-        setIsLoading(false);
-        return;
-      }
-      setBabols(babols);
-
-      setCurrentBabols(
-        babols.filter(
-          (babol: any) =>
-            new Date(babol.from_date) < new Date() &&
-            new Date(babol.to_date) > new Date()
-        )
-      );
-      setUpcomingBabols(
-        babols.filter((babol: any) => new Date(babol.from_date) > new Date())
-      );
-      setPastBabols(
-        babols.filter((babol: any) => new Date(babol.to_date) < new Date())
-      );
-      setIsLoading(false);
-    };
-    fetchData();
-  }, []);
-  return babols?.length > 0 && !isLoading ? (
+    setCurrentBabols(
+      babols
+        ? babols.filter(
+            (babol: any) => new Date(babol.babols.from_date) < new Date() &&
+              new Date(babol.babols.to_date) > new Date()
+          )
+        : []
+    );
+    setUpcomingBabols(
+      babols
+        ? babols.filter((babol: any) => new Date(babol.babols.from_date) > new Date())
+        : []
+    );
+    setPastBabols(
+      babols
+        ? babols.filter((babol: any) => new Date(babol.babols.to_date) < new Date())
+        : []
+    );
+  }, [babols]);
+  return (
     <div className="md:w-screen flex flex-col justify-center items-center ">
-      <div className="flex flex-row gap-xs w-full justify-center">
-        {tabs.map((tab, index) => {
-          return (
-            <div
-              key={index}
-              className={`p-sm rounded-sm text-3 min-w-xl text-center ${
-                activeTab == tab
-                  ? "bg-white text-black"
-                  : "bg-surfaceExtraDark text-white"
-              } cursor-pointer`}
-              onClick={() => {
-                setActiveTab(tab);
-              }}
-            >
-              {tab}
-            </div>
-          );
-        })}
-      </div>
-      {activeTab == "All" && (
-        <div className="flex flex-row gap-4 justify-start mt-xl flex-wrap w-5/6">
-          {babols.length > 0 &&
-            babols.map((babol, index) => (
-              <BabolCard
-                key={index}
-                babol={{
-                  id: babol.babols.id,
-                  name: `${babol.babols.name}`,
-                  category: {
-                    emoji: babol.babols.category?.emoji,
-                    name: babol.babols.category?.name,
-                  },
-                  configs: {
-                    background: "https://via.placeholder.com/150",
-                  },
-                }}
-                background={{
-                  source: index === 0 ? bg1 : index === 1 ? bg2 : bg3,
-                }}
-                ratio={5}
-              />
-            ))}
-        </div>
-      )}
-      {activeTab === "Current" && (
-        <div className="flex flex-row gap-4 justify-start mt-xl flex-wrap w-4/6">
-          {currentBabols.length > 0 &&
-            currentBabols.map((babol, index) => (
-              <BabolCard
-                key={index}
-                babol={{
-                  id: babol.babols.id,
-                  name: `${babol.babols.name}`,
-                  category: {
-                    emoji: babol.babols.category?.emoji,
-                    name: babol.babols.category?.name,
-                  },
-                  configs: {
-                    background: "https://via.placeholder.com/150",
-                  },
-                }}
-                background={{
-                  source: index === 0 ? bg1 : index === 1 ? bg2 : bg3,
-                }}
-                ratio={5}
-              />
-            ))}
-          {currentBabols.length === 0 && !isLoading && (
-            <div className="w-full min-h-[calc(100vh-200px)] flex justify-center items-center flex-col text-center">
-              <Image
-                src={emptyCurrent}
-                width={264}
-                height={240}
-                alt="Empty babols"
-              />
-              <p className="font-satoshiBold text-2xl">
-                There are no active babol at the moment
-              </p>
+      {!isLoading && babols?.length > 0 && (
+        <>
+          <div className="flex flex-row gap-xs w-full justify-center">
+            {tabs.map((tab, index) => {
+              return (
+                <div
+                  key={index}
+                  className={`p-sm rounded-sm text-3 min-w-xl text-center ${
+                    activeTab == tab
+                      ? "bg-white text-black"
+                      : "bg-surfaceExtraDark text-white"
+                  } cursor-pointer`}
+                  onClick={() => {
+                    setActiveTab(tab);
+                  }}
+                >
+                  {tab}
+                </div>
+              );
+            })}
+          </div>
+          {activeTab == "All" && (
+            <div className="flex flex-row gap-4 justify-start mt-xl flex-wrap w-5/6">
+              {babols.length > 0 &&
+                babols.map((babol: any, index: number) => (
+                  <BabolCard
+                    key={index}
+                    babol={{
+                      id: babol.babols.id,
+                      name: `${babol.babols.name}`,
+                      category: {
+                        emoji: babol.babols.category?.emoji,
+                        name: babol.babols.category?.name,
+                      },
+                      configs: {
+                        background: "https://via.placeholder.com/150",
+                      },
+                    }}
+                    background={{
+                      source: index === 0 ? bg1 : index === 1 ? bg2 : bg3,
+                    }}
+                    ratio={5}
+                  />
+                ))}
             </div>
           )}
-        </div>
-      )}
-      {activeTab === "Upcoming" && (
-        <div className="flex flex-row gap-4 justify-start mt-xl flex-wrap w-4/6">
-          {upcomingBabols.length > 0 &&
-            upcomingBabols.map((babol, index) => (
-              <BabolCard
-                key={index}
-                babol={{
-                  id: babol.babols.id,
-                  name: `${babol.babols.name}`,
-                  category: {
-                    emoji: babol.babols.category?.emoji,
-                    name: babol.babols.category?.name,
-                  },
-                  configs: {
-                    background: "https://via.placeholder.com/150",
-                  },
-                }}
-                background={{
-                  source: index === 0 ? bg1 : index === 1 ? bg2 : bg3,
-                }}
-                ratio={5}
-              />
-            ))}
-          {upcomingBabols.length === 0 && !isLoading && (
-            <div className="w-full min-h-[calc(100vh-200px)] flex justify-center items-center flex-col text-center">
-              <Image
-                src={emptyUpcoming}
-                width={264}
-                height={240}
-                alt="Empty babols"
-              />
-              <p className="font-satoshiBold text-2xl">
-                There are no upcoming babol
-              </p>
+          {activeTab === "Current" && (
+            <div className="flex flex-row gap-4 justify-start mt-xl flex-wrap w-4/6">
+              {currentBabols.length > 0 &&
+                currentBabols.map((babol: any, index: number) => (
+                  <BabolCard
+                    key={index}
+                    babol={{
+                      id: babol.babols.id,
+                      name: `${babol.babols.name}`,
+                      category: {
+                        emoji: babol.babols.category?.emoji,
+                        name: babol.babols.category?.name,
+                      },
+                      configs: {
+                        background: "https://via.placeholder.com/150",
+                      },
+                    }}
+                    background={{
+                      source: index === 0 ? bg1 : index === 1 ? bg2 : bg3,
+                    }}
+                    ratio={5}
+                  />
+                ))}
+              {currentBabols.length === 0 && !isLoading && (
+                <div className="w-full min-h-[calc(100vh-200px)] flex justify-center items-center flex-col text-center">
+                  <Image
+                    src={emptyCurrent}
+                    width={264}
+                    height={240}
+                    alt="Empty babols"
+                  />
+                  <p className="font-satoshiBold text-2xl">
+                    There are no active babol at the moment
+                  </p>
+                </div>
+              )}
             </div>
           )}
-        </div>
-      )}
-      {activeTab === "Past" && (
-        <div className="flex flex-row gap-4 justify-start mt-xl flex-wrap w-4/6">
-          {pastBabols.length > 0 &&
-            pastBabols.map((babol, index) => (
-              <BabolCard
-                key={index}
-                babol={{
-                  id: babol.babols.id,
-                  name: `${babol.babols.name}`,
-                  category: {
-                    emoji: babol.babols.category?.emoji,
-                    name: babol.babols.category?.name,
-                  },
-                  configs: {
-                    background: "https://via.placeholder.com/150",
-                  },
-                }}
-                background={{
-                  source: index === 0 ? bg1 : index === 1 ? bg2 : bg3,
-                }}
-                ratio={5}
-              />
-            ))}
-          {pastBabols.length === 0 && !isLoading && (
-            <div className="w-full min-h-[calc(100vh-200px)] flex justify-center items-center flex-col text-center">
-              <Image
-                src={emptyPast}
-                width={264}
-                height={240}
-                alt="Empty babols"
-              />
-              <p className="font-satoshiBold text-2xl">
-                There are no past babol
-              </p>
+          {activeTab === "Upcoming" && (
+            <div className="flex flex-row gap-4 justify-start mt-xl flex-wrap w-4/6">
+              {upcomingBabols.length > 0 &&
+                upcomingBabols.map((babol: any, index: number) => (
+                  <BabolCard
+                    key={index}
+                    babol={{
+                      id: babol.babols.id,
+                      name: `${babol.babols.name}`,
+                      category: {
+                        emoji: babol.babols.category?.emoji,
+                        name: babol.babols.category?.name,
+                      },
+                      configs: {
+                        background: "https://via.placeholder.com/150",
+                      },
+                    }}
+                    background={{
+                      source: index === 0 ? bg1 : index === 1 ? bg2 : bg3,
+                    }}
+                    ratio={5}
+                  />
+                ))}
+              {upcomingBabols.length === 0 && !isLoading && (
+                <div className="w-full min-h-[calc(100vh-200px)] flex justify-center items-center flex-col text-center">
+                  <Image
+                    src={emptyUpcoming}
+                    width={264}
+                    height={240}
+                    alt="Empty babols"
+                  />
+                  <p className="font-satoshiBold text-2xl">
+                    There are no upcoming babol
+                  </p>
+                </div>
+              )}
             </div>
           )}
+          {activeTab === "Past" && (
+            <div className="flex flex-row gap-4 justify-start mt-xl flex-wrap w-4/6">
+              {pastBabols.length > 0 &&
+                pastBabols.map((babol: any, index: number) => (
+                  <BabolCard
+                    key={index}
+                    babol={{
+                      id: babol.babols.id,
+                      name: `${babol.babols.name}`,
+                      category: {
+                        emoji: babol.babols.category?.emoji,
+                        name: babol.babols.category?.name,
+                      },
+                      configs: {
+                        background: "https://via.placeholder.com/150",
+                      },
+                    }}
+                    background={{
+                      source: index === 0 ? bg1 : index === 1 ? bg2 : bg3,
+                    }}
+                    ratio={5}
+                  />
+                ))}
+              {pastBabols.length === 0 && !isLoading && (
+                <div className="w-full min-h-[calc(100vh-200px)] flex justify-center items-center flex-col text-center">
+                  <Image
+                    src={emptyPast}
+                    width={264}
+                    height={240}
+                    alt="Empty babols"
+                  />
+                  <p className="font-satoshiBold text-2xl">
+                    There are no past babol
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+        </>
+      )}
+      {!isLoading && !babols?.length && (
+        <div className="w-full min-h-[calc(100vh-200px)] flex justify-center items-center flex-col">
+          <Image
+            src={emptyBabols}
+            width={264}
+            height={240}
+            alt="Empty babols"
+          />
+          <p className="font-satoshiBold text-2xl">No babol here yet</p>
+          <p>To create a new babol download the app</p>
         </div>
       )}
-    </div>
-  ) : !isLoading ? (
-    <div className="w-full min-h-[calc(100vh-200px)] flex justify-center items-center flex-col">
-      <Image src={emptyBabols} width={264} height={240} alt="Empty babols" />
-      <p className="font-satoshiBold text-2xl">No babol here yet</p>
-      <p>To create a new babol download the app</p>
-    </div>
-  ) : (
-    <div className="flex flex-col w-full justify-center gap-xl min-h-full overflow-visible md:px-48">
-      <div className="flex flex-row gap-xs w-full justify-center h-full">
-        {tabs.map((tab, index) => {
-          return (
-            <div
-              key={index}
-              className={`p-sm rounded-sm text-3 min-w-xl text-center ${
-                activeTab == tab
-                  ? "bg-white text-black"
-                  : "bg-surfaceExtraDark text-white"
-              } cursor-pointer`}
-              onClick={() => {
-                setActiveTab(tab);
-              }}
-            >
-              {tab}
-            </div>
-          );
-        })}
-      </div>
-      <div className="grid gap-lg grid-cols-1 sm:grid-cols-2 md:grid-cols-3 min-h-full">
-        {[1, 2, 3, 4].map((item) => (
-          <BabolSkeleton key={item} />
-        ))}
-      </div>
+      {isLoading && (
+        <div className="flex flex-col w-full justify-center gap-xl min-h-full overflow-visible md:px-48">
+          <div className="flex flex-row gap-xs w-full justify-center h-full">
+            {tabs.map((tab, index) => {
+              return (
+                <div
+                  key={index}
+                  className={`p-sm rounded-sm text-3 min-w-xl text-center ${
+                    activeTab == tab
+                      ? "bg-white text-black"
+                      : "bg-surfaceExtraDark text-white"
+                  } cursor-pointer`}
+                  onClick={() => {
+                    setActiveTab(tab);
+                  }}
+                >
+                  {tab}
+                </div>
+              );
+            })}
+          </div>
+          <div className="grid gap-lg grid-cols-1 sm:grid-cols-2 md:grid-cols-3 min-h-full">
+            {[1, 2, 3, 4].map((item) => (
+              <BabolSkeleton key={item} />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

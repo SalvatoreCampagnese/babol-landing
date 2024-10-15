@@ -11,13 +11,13 @@ import { useRouter } from "next/navigation";
 import { supabase } from "../../utils/supabase";
 import { useAppDispatch, useAppSelector } from "../../lib/store";
 import { setUserData } from "../../lib/signupSlice";
+import { toast } from "react-toastify";
 
 export const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigation = useRouter();
   const password = process.env.NEXT_PUBLIC_USER_DEFAULT_PASSWORD || "";
-  const userState = useAppSelector((state:any) => state.user);
   const dispatch = useAppDispatch();
 
   const _signupWithEmail = async () => {
@@ -39,7 +39,8 @@ export const LoginForm = () => {
 
       await handleExistingAccount(true)
     } catch (e: any) {
-      window.alert(e);
+      toast.error('An error occurred, please retry!')
+      console.log('_signupWithEmail', e)
     } finally {
       setIsLoading(false);
     }
@@ -53,7 +54,7 @@ export const LoginForm = () => {
   const handleExistingAccount = async (hasPasswordChanged: boolean, providerType?: 'google' | 'apple') => {
     if (!hasPasswordChanged) {
       if (providerType) {
-        window.alert('Please sign in with your ' + providerType + ' account');
+        toast.error('Please sign in with your ' + providerType + ' account');
         return;
       }
 

@@ -8,6 +8,7 @@ import { useAppSelector } from "../../lib/store";
 import { loginWithEmail } from "../../utils/user";
 import { supabase } from "../../utils/supabase";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export const PasswordForm = () => {
   const router = useRouter();
@@ -18,7 +19,7 @@ export const PasswordForm = () => {
   const _loginWithEmail = async () => {
     try {
         if(!password) {
-            window.alert('Password is required');
+            toast.error('Password is required');
             return;
         }
         console.log(userData, password);
@@ -30,7 +31,7 @@ export const PasswordForm = () => {
         router.replace('/app/dashboard')
       
     } catch (e: any) {
-      window.alert(e);
+      toast.error(e);
     } finally {
       setIsLoading(false);
     }
@@ -42,7 +43,7 @@ export const PasswordForm = () => {
   }, [])
   const _resetPassword = async () => {
     if(!userData.email) {
-        window.alert('Email is required');
+      toast.error('Email is required');
         return;
     }
     await supabase.auth.resetPasswordForEmail(userData.email, {

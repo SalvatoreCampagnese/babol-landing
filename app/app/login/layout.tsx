@@ -22,7 +22,6 @@ export default function RootLayout({
     fetchSession();
   },[]);
   return (
-    <ReduxProvider>
     <html lang="en">
       <head></head>
       <body className="relative bg-app-gradient min-h-screen">
@@ -34,6 +33,5 @@ export default function RootLayout({
         <Footer />
       </body>
     </html>
-    </ReduxProvider>
   );
 }

@@ -1,11 +1,12 @@
-import { Tables } from "@/app/types/supabase";
 import { supabase } from "./supabase";
 import { getLoggedUserProfile } from "./user";
 
 export const getPartecipantBabols = async () => {
   try {
     // Get logged user
+    console.log('GetPartecipant')
     const { data: loggedUser } = await getLoggedUserProfile();
+    console.log('loggedUser', loggedUser)
     if (!loggedUser) {
       return [];
     }
@@ -21,7 +22,7 @@ export const getPartecipantBabols = async () => {
 
     return data;
   } catch (e) {
-    window.location.replace('/app/login')
+    console.log('catch')
     return [];
   }
 };
@@ -36,7 +37,6 @@ export const getBabolExtrInfo = async (babolId: number) => {
 
 export const joinBabol = async (babolId: number) => {
   const { data: loggedUser } = await getLoggedUserProfile();
-  console.log(loggedUser, babolId);
   // Check if already in babol
   const { data: partecipant, error: errorPartecipants } = await supabase
     .from("babol_partecipants")

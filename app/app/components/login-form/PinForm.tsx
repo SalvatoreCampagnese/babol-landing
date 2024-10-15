@@ -8,6 +8,7 @@ import { supabase } from "../../utils/supabase";
 import { loginWithEmail, verifyUser } from "../../utils/user";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "../../lib/store";
+import { toast } from "react-toastify";
 export const PinForm = () => {
   const userData = useAppSelector((state) => state.user);
   const [counter, setCounter] = useState(0);
@@ -29,9 +30,9 @@ export const PinForm = () => {
             return prev - 1;
           });
         }, 1000);
-        window.alert('We sent you a new link!, Check your inbox');
+        toast.success('We sent you a new link!, Check your inbox');
       } catch (e: any) {
-        window.alert(e.message);
+        toast.error(e.message);
       }
     }
   }
@@ -51,7 +52,7 @@ export const PinForm = () => {
         navigation.push('?step=signup');
     })
     .catch((error) => {
-        window.alert(error);
+      toast.error(error.message);
     })
     .finally(() => {
         setLoading(false);
