@@ -14,6 +14,7 @@ import ModalInfoBabol from "../../components/modals/ModalInfoBabol";
 import { toast } from "react-toastify";
 import { getLoggedUserProfile } from "../../utils/user";
 import ModalError from "../../components/modals/ModalInfo";
+import ShowMoreText from "../../components/ShowMoreText";
 
 const Page = () => {
   const router = useRouter();
@@ -106,14 +107,8 @@ const Page = () => {
                 }}
               />
             </div>
-            <span className="hidden md:block">{babol.description}</span>
-            <div className="hidden md:block">
-              <Button
-                kind="link"
-                text="Show more info"
-                customClasses="text-white"
-              />
-            </div>
+            <span className="hidden md:block"><ShowMoreText text={babol.description} maxLength={100} /></span>
+
           </>
 
           <div className="gap-xs hidden md:block">
