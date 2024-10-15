@@ -18,13 +18,17 @@ const useCachedFetch = (fetchFunction: Function) => {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
+      console.log('yo')
       const cachedData = sessionStorage.getItem("cachedBabols");
-      if (cachedData) {
-        setData(JSON.parse(cachedData)); // Use cached data
+      const arrayOfBabols = JSON.parse(cachedData || "[]")
+      if (arrayOfBabols && arrayOfBabols?.length) {
+        console.log('Here 1')
+        setData(arrayOfBabols); // Use cached data
         setIsLoading(false);
         return;
       }
       const fetchedData = await fetchFunction();
+      console.log('FETCHED', fetchData)
       sessionStorage.setItem("cachedBabols", JSON.stringify(fetchedData)); // Cache the data
       setData(fetchedData);
       setIsLoading(false);
