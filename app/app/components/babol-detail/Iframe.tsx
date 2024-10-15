@@ -6,13 +6,17 @@ export const Iframe = ({
 }:{
   babolID:string
 }) => {
-  const babolIframeRef = useRef<any>(null)
+  
+  const babolIframeRef = useRef<HTMLIFrameElement>(null)
+
   useEffect(()=>{
-    console.log('iframeref:' +(babolIframeRef.current && babolIframeRef.current.contentWindow))
+
     if (babolIframeRef.current && babolIframeRef.current.contentWindow) {
-      console.log("Sending event")
-      babolIframeRef.current.contentWindow.postMessage("disableDashboardEdit");
+
+      babolIframeRef.current.contentWindow.postMessage("disableDashboardEdit", "*");
+
     }
+
   },[])
   return (
     <iframe
