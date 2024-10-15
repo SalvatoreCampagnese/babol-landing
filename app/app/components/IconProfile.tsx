@@ -11,7 +11,7 @@ const IconProfile = ({
   _logout: Function;
 }) => {
   const [openSubMenu, setOpenSubMenu] = useState(false);
-  const ref = useRef(null);
+  const ref = useRef<any>(null);
 
   useEffect(() => {
     const handleOutSideClick = (event:any) => {
