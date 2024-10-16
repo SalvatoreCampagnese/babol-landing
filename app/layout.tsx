@@ -1,18 +1,11 @@
-"use client"
 import "./globals.css";
 import Script from "next/script";
 import IubendaScripts from "./components/IubendaScripts";
-import { usePathname } from "next/navigation";
-import { Suspense } from "react";
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
-  const pathname = usePathname();
-  const isDashboard = pathname.startsWith("/dashboard");
   return (
     <html lang="en">
       <head>
@@ -23,9 +16,9 @@ export default function RootLayout({
 
         <Script src="/animation.js" />
       </head>
-      <body className={isDashboard ? "relative bg-surfaceBlack min-h-screen overflow-x-hidden max-w-full md:p-[24px] p-2" : "overflow-x-hidden bg-app-gradient min-h-screen"}>
+      <body className={"overflow-x-hidden bg-app-gradient min-h-screen"}>
         <IubendaScripts />
-        <Suspense>{children}</Suspense>
+        {children}
       </body>
     </html>
   );

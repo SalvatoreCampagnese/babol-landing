@@ -19,7 +19,17 @@ export const getPartecipantBabols = async () => {
       .neq("babols.status", "deleted")
       .not("babols", "is", null);
     if (error) return [];
-
+    
+    for(const babol of data as any){
+      const { data, count, error } = await supabase
+      .from("babol_partecipants")
+      .select("*, profileID(uuid)", {count:'exact'})
+      .eq("babolID", babol.babols.id)
+      .limit(3)
+      babol.countPartecipants = count
+      babol.uuids = data
+    }
+    
     return data;
   } catch (e) {
     console.log('catch')

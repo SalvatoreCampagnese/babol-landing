@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import BabolCard from "./BabolCard";
 import bg1 from "../../assets/babol-bg/bg1.png";
 import bg2 from "../../assets/babol-bg/bg2.png";
@@ -18,17 +18,14 @@ const useCachedFetch = (fetchFunction: Function) => {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      console.log('yo')
       const cachedData = sessionStorage.getItem("cachedBabols");
       const arrayOfBabols = JSON.parse(cachedData || "[]")
       if (arrayOfBabols && arrayOfBabols?.length) {
-        console.log('Here 1')
         setData(arrayOfBabols); // Use cached data
         setIsLoading(false);
         return;
       }
       const fetchedData = await fetchFunction();
-      console.log('FETCHED', fetchData)
       sessionStorage.setItem("cachedBabols", JSON.stringify(fetchedData)); // Cache the data
       setData(fetchedData);
       setIsLoading(false);
@@ -44,11 +41,18 @@ export const TabsContainer = () => {
   const tabs = ["All", "Current", "Upcoming", "Past"];
   const [activeTab, setActiveTab] = useState("All");
   const { data: babols, isLoading }: any = useCachedFetch(getPartecipantBabols); // Use custom hook
-
+  console.log(babols)
   const [currentBabols, setCurrentBabols] = useState<any[]>([]);
   const [upcomingBabols, setUpcomingBabols] = useState<any[]>([]);
   const [pastBabols, setPastBabols] = useState<any[]>([]);
-  useMemo(() => {
+  const [profiles, setProfiles] = useState<any[]>([])
+  useEffect(() => {
+    if(!babols?.length) return;
+    let profilesUids=[]
+    for(const babol of babols){
+      profilesUids.push(babol?.profileID?.uuid)
+    }
+    setProfiles(profilesUids)
     setCurrentBabols(
       babols
         ? babols.filter(
@@ -70,7 +74,7 @@ export const TabsContainer = () => {
   }, [babols]);
   return (
     <div className="md:w-screen flex flex-col justify-center items-center ">
-      {!isLoading && babols?.length > 0 && (
+      {babols?.length > 0 && (
         <>
           <div className="flex flex-row gap-xs w-full justify-center">
             {tabs.map((tab, index) => {
@@ -92,7 +96,7 @@ export const TabsContainer = () => {
             })}
           </div>
           {activeTab == "All" && (
-            <div className="flex flex-row gap-4 justify-start mt-xl flex-wrap w-5/6">
+            <div className="flex flex-row gap-4 justify-center mt-xl flex-wrap w-5/6">
               {babols.length > 0 &&
                 babols.map((babol: any, index: number) => (
                   <BabolCard
@@ -100,6 +104,8 @@ export const TabsContainer = () => {
                     babol={{
                       id: babol.babols.id,
                       name: `${babol.babols.name}`,
+                      from_date: babol.babols.from_date,
+                      to_date: babol.babols.to_date,
                       category: {
                         emoji: babol.babols.category?.emoji,
                         name: babol.babols.category?.name,
@@ -107,6 +113,8 @@ export const TabsContainer = () => {
                       configs: {
                         background: "https://via.placeholder.com/150",
                       },
+                      profilesUids: babol.uuids?.map((item:any) => item.profileID?.uuid),
+                      countPartecipants: babol.countPartecipants || 1
                     }}
                     background={{
                       source: index === 0 ? bg1 : index === 1 ? bg2 : bg3,
@@ -117,7 +125,7 @@ export const TabsContainer = () => {
             </div>
           )}
           {activeTab === "Current" && (
-            <div className="flex flex-row gap-4 justify-start mt-xl flex-wrap w-4/6">
+            <div className="flex flex-row gap-4 justify-center mt-xl flex-wrap w-5/6">
               {currentBabols.length > 0 &&
                 currentBabols.map((babol: any, index: number) => (
                   <BabolCard
@@ -125,6 +133,8 @@ export const TabsContainer = () => {
                     babol={{
                       id: babol.babols.id,
                       name: `${babol.babols.name}`,
+                      from_date: babol.babols.from_date,
+                      to_date: babol.babols.to_date,
                       category: {
                         emoji: babol.babols.category?.emoji,
                         name: babol.babols.category?.name,
@@ -132,6 +142,8 @@ export const TabsContainer = () => {
                       configs: {
                         background: "https://via.placeholder.com/150",
                       },
+                      profilesUids: babol.uuids?.map((item:any) => item.profileID?.uuid),
+                      countPartecipants: babol.countPartecipants || 1
                     }}
                     background={{
                       source: index === 0 ? bg1 : index === 1 ? bg2 : bg3,
@@ -155,7 +167,7 @@ export const TabsContainer = () => {
             </div>
           )}
           {activeTab === "Upcoming" && (
-            <div className="flex flex-row gap-4 justify-start mt-xl flex-wrap w-4/6">
+            <div className="flex flex-row gap-4 justify-center mt-xl flex-wrap w-5/6">
               {upcomingBabols.length > 0 &&
                 upcomingBabols.map((babol: any, index: number) => (
                   <BabolCard
@@ -163,6 +175,8 @@ export const TabsContainer = () => {
                     babol={{
                       id: babol.babols.id,
                       name: `${babol.babols.name}`,
+                      from_date: babol.babols.from_date,
+                      to_date: babol.babols.to_date,
                       category: {
                         emoji: babol.babols.category?.emoji,
                         name: babol.babols.category?.name,
@@ -170,6 +184,8 @@ export const TabsContainer = () => {
                       configs: {
                         background: "https://via.placeholder.com/150",
                       },
+                      profilesUids: babol.uuids?.map((item:any) => item.profileID?.uuid),
+                      countPartecipants: babol.countPartecipants || 1
                     }}
                     background={{
                       source: index === 0 ? bg1 : index === 1 ? bg2 : bg3,
@@ -193,7 +209,7 @@ export const TabsContainer = () => {
             </div>
           )}
           {activeTab === "Past" && (
-            <div className="flex flex-row gap-4 justify-start mt-xl flex-wrap w-4/6">
+            <div className="flex flex-row gap-4 justify-center mt-xl flex-wrap w-5/6">
               {pastBabols.length > 0 &&
                 pastBabols.map((babol: any, index: number) => (
                   <BabolCard
@@ -201,6 +217,8 @@ export const TabsContainer = () => {
                     babol={{
                       id: babol.babols.id,
                       name: `${babol.babols.name}`,
+                      from_date: babol.babols.from_date,
+                      to_date: babol.babols.to_date,
                       category: {
                         emoji: babol.babols.category?.emoji,
                         name: babol.babols.category?.name,
@@ -208,6 +226,8 @@ export const TabsContainer = () => {
                       configs: {
                         background: "https://via.placeholder.com/150",
                       },
+                      profilesUids: babol.uuids?.map((item:any) => item.profileID?.uuid),
+                      countPartecipants: babol.countPartecipants || 1
                     }}
                     background={{
                       source: index === 0 ? bg1 : index === 1 ? bg2 : bg3,
@@ -232,7 +252,7 @@ export const TabsContainer = () => {
           )}
         </>
       )}
-      {!isLoading && !babols?.length && (
+      {!babols?.length && !isLoading && (
         <div className="w-full min-h-[calc(100vh-200px)] flex justify-center items-center flex-col">
           <Image
             src={emptyBabols}
@@ -244,9 +264,9 @@ export const TabsContainer = () => {
           <p>To create a new babol download the app</p>
         </div>
       )}
-      {isLoading && (
-        <div className="flex flex-col w-full justify-center gap-xl min-h-full overflow-visible md:px-48">
-          <div className="flex flex-row gap-xs w-full justify-center h-full">
+      {!babols && (
+        <>
+          <div className="flex flex-row gap-xs w-full justify-center">
             {tabs.map((tab, index) => {
               return (
                 <div
@@ -265,12 +285,12 @@ export const TabsContainer = () => {
               );
             })}
           </div>
-          <div className="grid gap-lg grid-cols-1 sm:grid-cols-2 md:grid-cols-3 min-h-full">
+          <div className="flex flex-row gap-4 justify-center mt-xl flex-wrap w-5/6">
             {[1, 2, 3, 4].map((item) => (
               <BabolSkeleton key={item} />
             ))}
           </div>
-        </div>
+        </>
       )}
     </div>
   );

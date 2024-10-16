@@ -1,6 +1,5 @@
-"use client";
+import { Suspense } from "react";
 import IubendaScripts from "../../components/IubendaScripts";
-import { Footer } from "../components/Footer";
 import { HeaderDashboard } from "../components/HeaderDashboard";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,29 +9,23 @@ export default function UserLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head></head>
-      <body className="relative bg-surfaceBlack min-h-screen overflow-x-hidden max-w-full md:p-[24px] p-2">
-        <div className="flex flex-col gap-lg overflow-x-hidden" id="wrapper">
-          <HeaderDashboard />
-          <IubendaScripts />
-          {children}
-          <ToastContainer
-            position="top-center"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-            transition={Bounce}
-          />
-        </div>
-        <Footer />
-      </body>
-    </html>
+    <div className="relative bg-surfaceBlack min-h-screen overflow-x-hidden max-w-full md:p-[24px] p-2" id="wrapper">
+      <HeaderDashboard />
+      <IubendaScripts />
+      <Suspense>{children}</Suspense>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
+    </div>
   );
 }
