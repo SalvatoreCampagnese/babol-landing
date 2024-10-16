@@ -96,7 +96,7 @@ export const TabsContainer = () => {
             })}
           </div>
           {activeTab == "All" && (
-            <div className="flex flex-row gap-4 justify-center mt-xl flex-wrap w-5/6">
+            <div className="flex flex-row gap-4 justify-center mt-xl flex-wrap md:w-5/6 w-full">
               {babols.length > 0 &&
                 babols.map((babol: any, index: number) => (
                   <BabolCard
@@ -125,7 +125,7 @@ export const TabsContainer = () => {
             </div>
           )}
           {activeTab === "Current" && (
-            <div className="flex flex-row gap-4 justify-center mt-xl flex-wrap w-5/6">
+            <div className="flex flex-row gap-4 justify-center mt-xl flex-wrap md:w-5/6 w-full">
               {currentBabols.length > 0 &&
                 currentBabols.map((babol: any, index: number) => (
                   <BabolCard
@@ -167,7 +167,7 @@ export const TabsContainer = () => {
             </div>
           )}
           {activeTab === "Upcoming" && (
-            <div className="flex flex-row gap-4 justify-center mt-xl flex-wrap w-5/6">
+            <div className="flex flex-row gap-4 justify-center mt-xl flex-wrap md:w-5/6 w-full">
               {upcomingBabols.length > 0 &&
                 upcomingBabols.map((babol: any, index: number) => (
                   <BabolCard
@@ -209,7 +209,7 @@ export const TabsContainer = () => {
             </div>
           )}
           {activeTab === "Past" && (
-            <div className="flex flex-row gap-4 justify-center mt-xl flex-wrap w-5/6">
+            <div className="flex flex-row gap-4 justify-center mt-xl flex-wrap md:w-5/6 w-full">
               {pastBabols.length > 0 &&
                 pastBabols.map((babol: any, index: number) => (
                   <BabolCard

@@ -14,12 +14,12 @@ export default function UserLayout({
   return (
     <html lang="en">
       <head></head>
-      <body className="relative bg-surfaceBlack min-h-screen overflow-x-hidden max-w-full p-[24px]">
+      <body className="relative bg-surfaceBlack min-h-screen overflow-x-hidden max-w-full p-[24px] overflow-y-hidden">
         <div
-          className="flex flex-col gap-lg overflow-x-hidden"
+          className="flex flex-col gap-lg overflow-x-hidden overflow-y-hidden"
           id="wrapper"
         >
-          <HeaderDashboard />
+          <div className="hidden md:block"><HeaderDashboard /></div>
           <IubendaScripts />
           <Suspense>{children}</Suspense>
           <ToastContainer 
@@ -36,7 +36,6 @@ export default function UserLayout({
             theme="dark"
             transition={Bounce}/>
         </div>
-        <Footer />
       </body>
     </html>
   );

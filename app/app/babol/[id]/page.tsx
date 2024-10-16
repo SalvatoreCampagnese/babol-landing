@@ -76,7 +76,7 @@ const Page = () => {
   }, [params.id]);
   return (
     (!isLoading && babol && (
-      <div className="flex flex-col md:flex-row md:items-start justify-center gap-2 md:gap-[32px]">
+      <div className="flex flex-col md:flex-row md:items-start justify-center gap-2 md:gap-[32px] overflow-y-hidden">
         {showLoginModal && <ModalLogin />}
         {showModalInfo && (
           <>
@@ -168,7 +168,7 @@ const Page = () => {
           <Iframe babolID={params.id} />
         </div>
       </div>
-    )) || <div>Loading...</div>
+    )) || <div></div>
   );
 };
 export default Page;

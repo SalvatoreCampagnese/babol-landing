@@ -21,7 +21,7 @@ export const HeaderDashboard = () => {
     window.location.href = "/app/login";
   };
   return (
-    <div className="flex h-[40px] flex-row justify-between">
+    <div className="flex h-[40px] flex-row justify-between px-4 mb-2 md:px-0 md:mb-0">
       <h1 className="text-4xl font-bold cursor-pointer">
         <Image
           src={Logo}
