@@ -1,4 +1,5 @@
 "use client"
+import { Suspense } from "react";
 import IubendaScripts from "../../components/IubendaScripts";
 import { Footer } from "../components/Footer";
 import { HeaderDashboard } from "../components/HeaderDashboard";
@@ -20,7 +21,7 @@ export default function UserLayout({
         >
           <HeaderDashboard />
           <IubendaScripts />
-          {children}
+          <Suspense>{children}</Suspense>
           <ToastContainer 
             position="top-center"
             autoClose={5000}
