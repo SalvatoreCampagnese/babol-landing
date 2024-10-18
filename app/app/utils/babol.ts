@@ -4,9 +4,7 @@ import { getLoggedUserProfile } from "./user";
 export const getPartecipantBabols = async () => {
   try {
     // Get logged user
-    console.log('GetPartecipant')
     const { data: loggedUser } = await getLoggedUserProfile();
-    console.log('loggedUser', loggedUser)
     if (!loggedUser) {
       return [];
     }

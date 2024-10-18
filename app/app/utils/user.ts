@@ -33,6 +33,7 @@ export const getLoggedUserProfile = async () => {
 };
 
 export const logout = async () => {
+  sessionStorage.setItem("cachedBabols", ""); // Remove cached data
   return supabase.auth.signOut();
 }
 

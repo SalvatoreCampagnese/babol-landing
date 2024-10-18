@@ -19,20 +19,36 @@ const useCachedFetch = (fetchFunction: Function) => {
     const fetchData = async () => {
       setIsLoading(true);
       const cachedData = sessionStorage.getItem("cachedBabols");
-      const arrayOfBabols = JSON.parse(cachedData || "[]")
-      if (arrayOfBabols && arrayOfBabols?.length) {
-        setData(arrayOfBabols); // Use cached data
+      const emptyData = JSON.stringify({
+        cacheDate: new Date(),
+        babols: []
+      });
+      const arrayOfBabols = JSON.parse(cachedData || emptyData)
+      let isExpired = false
+      // TODO: Check if cacheDate is > than 1h
+      if(arrayOfBabols?.cacheDate){
+        const today:any = new Date();
+        const diffInMilliseconds = arrayOfBabols.cacheDate - today;
+        const diffInHours = diffInMilliseconds / (1000 * 60 * 60);
+        if(diffInHours > 1){
+          isExpired = true
+        }
+      }
+
+      if (arrayOfBabols?.babols && arrayOfBabols?.babols?.length && arrayOfBabols?.cacheDate && !isExpired) {
+        setData(arrayOfBabols?.babols); // Use cached data
         setIsLoading(false);
         return;
       }
       const fetchedData = await fetchFunction();
-      sessionStorage.setItem("cachedBabols", JSON.stringify(fetchedData)); // Cache the data
+      sessionStorage.setItem("cachedBabols", JSON.stringify({cacheDate: new Date(),
+        babols:fetchedData})); // Cache the data
       setData(fetchedData);
       setIsLoading(false);
     };
 
     fetchData();
-  }, [fetchFunction]);
+  }, []);
 
   return { data, isLoading };
 };
@@ -41,7 +57,6 @@ export const TabsContainer = () => {
   const tabs = ["All", "Current", "Upcoming", "Past"];
   const [activeTab, setActiveTab] = useState("All");
   const { data: babols, isLoading }: any = useCachedFetch(getPartecipantBabols); // Use custom hook
-  console.log(babols)
   const [currentBabols, setCurrentBabols] = useState<any[]>([]);
   const [upcomingBabols, setUpcomingBabols] = useState<any[]>([]);
   const [pastBabols, setPastBabols] = useState<any[]>([]);
@@ -117,7 +132,8 @@ export const TabsContainer = () => {
                       countPartecipants: babol.countPartecipants || 1
                     }}
                     background={{
-                      source: index === 0 ? bg1 : index === 1 ? bg2 : bg3,
+                      source: babol?.babols?.configs?.background,
+                      dark: babol?.babols?.configs?.background == 'bg-2' || babol?.babols?.configs?.background == 'bg-3' || babol?.babols?.configs?.background == 'bg-4' || babol?.babols?.configs?.background == 'bg-5'
                     }}
                     ratio={5}
                   />
@@ -146,7 +162,8 @@ export const TabsContainer = () => {
                       countPartecipants: babol.countPartecipants || 1
                     }}
                     background={{
-                      source: index === 0 ? bg1 : index === 1 ? bg2 : bg3,
+                      source: babol?.babols?.configs?.background,
+                      dark: babol?.babols?.configs?.background == 'bg-2' || babol?.babols?.configs?.background == 'bg-3' || babol?.babols?.configs?.background == 'bg-4' || babol?.babols?.configs?.background == 'bg-5'
                     }}
                     ratio={5}
                   />
@@ -188,7 +205,8 @@ export const TabsContainer = () => {
                       countPartecipants: babol.countPartecipants || 1
                     }}
                     background={{
-                      source: index === 0 ? bg1 : index === 1 ? bg2 : bg3,
+                      source: babol?.babols?.configs?.background,
+                      dark: babol?.babols?.configs?.background == 'bg-2' || babol?.babols?.configs?.background == 'bg-3' || babol?.babols?.configs?.background == 'bg-4' || babol?.babols?.configs?.background == 'bg-5'
                     }}
                     ratio={5}
                   />
@@ -230,7 +248,8 @@ export const TabsContainer = () => {
                       countPartecipants: babol.countPartecipants || 1
                     }}
                     background={{
-                      source: index === 0 ? bg1 : index === 1 ? bg2 : bg3,
+                      source: babol?.babols?.configs?.background,
+                      dark: babol?.babols?.configs?.background == 'bg-2' || babol?.babols?.configs?.background == 'bg-3' || babol?.babols?.configs?.background == 'bg-4' || babol?.babols?.configs?.background == 'bg-5'
                     }}
                     ratio={5}
                   />

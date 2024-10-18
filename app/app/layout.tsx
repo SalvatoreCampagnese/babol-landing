@@ -1,7 +1,5 @@
-"use client";
 import IubendaScripts from "../components/IubendaScripts";
 import { Footer } from "./components/Footer";
-import { Suspense } from "react";
 import ReactQueryProvider from "./ReactQueryProvider";
 export default function RootLayout({
   children,

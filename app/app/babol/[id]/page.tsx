@@ -160,9 +160,11 @@ const Page = () => {
           </p>
         </div>
         <div
-          className="md:w-3/12 w-full rounded-xl bg-my_bg_image bg-cover p-1"
+          className="md:w-3/12 w-full rounded-xl p-1"
           style={{
             minHeight: "calc(100vh - 185px)",
+            background: `url('/babol-bg/${babol?.configs?.background}.png')`,
+            backgroundSize: 'cover'
           }}
         >
           <Iframe babolID={params.id} />

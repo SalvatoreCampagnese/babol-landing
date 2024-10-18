@@ -4,6 +4,7 @@ import iconCalendar from "../../assets/icon-calendar.svg";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import SkeletonGif from '../../assets/skeleton.gif'
+import bg1 from '@/app/app/assets/babol-bg/bg1.png'
 const BabolCard = ({
   babol,
   background,
@@ -93,16 +94,20 @@ const BabolCard = ({
   return (
     <Link
       href={`/app/babol/${babol.id}`}
-      className="relative h-32 p-4 w-full sm:w-3/12 flex justify-between rounded-xl cursor-pointer"
+      target="_self"
+      className={`relative h-32 p-4 w-full sm:w-3/12 flex justify-between rounded-xl cursor-pointer bg-cover`}
+      style={{
+        backgroundImage: `url('/babol-bg/${background.source}.png')`
+      }}
     >
       <div className="absolute inset-0 rounded-xl overflow-hidden">
-        <Image
+        {/* <Image
           alt="background"
           layout="fill"
           objectFit="cover"
           src={background.source}
           className="absolute"
-        />
+        /> */}
       </div>
 
       <div className="flex flex-col justify-between flex-1 z-10">
@@ -115,7 +120,9 @@ const BabolCard = ({
         </div>
         <div className="flex items-center gap-2 bg-opacity-60 bg-white px-2 py-1 rounded-full w-fit">
           <div className="text-lg font-semibold">{babol.category.emoji}</div>
-          <div className="text-md font-medium text-nowrap">
+          <div className={`text-md font-medium text-nowrap ${
+            background.dark ? "text-white" : "text-black"
+          }`}>
             {babol.category.name}
           </div>
         </div>

@@ -45,7 +45,7 @@ const IconProfile = ({
         }}
       />
       {openSubMenu && (
-        <div className="absolute top-20 right-6 bg-white rounded-md shadow-md p-4" ref={ref}>
+        <div className="absolute md:top-20 top-14 right-6 bg-white rounded-md shadow-md p-4" ref={ref}>
           <div className="flex flex-col gap-xs">
             <span
               className="text-black font-satoshiBold cursor-pointer"
