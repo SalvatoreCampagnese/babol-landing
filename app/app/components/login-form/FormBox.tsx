@@ -14,14 +14,6 @@ export const FormBox = () => {
   const params = useSearchParams();
   const dispatch = useAppDispatch();
   const [step, setStep] = useState<string>("login");
-  const [userData, setUserData] = useState({
-    email: "",
-    firstName: "",
-    lastName: "",
-    birthDate: "",
-    password: "",
-    profilePicture: "",
-  });
   useEffect(() => {
     setStep(params?.get("step") || "login");
   }, [params]);
@@ -37,6 +29,9 @@ export const FormBox = () => {
               }
               if (step === "signup") {
                 window.location.href = "/app/login?step=pin";
+              }
+              if (step === "reset-password") {
+                window.location.href = "/app/login?step=password";
               }
             }}
           />

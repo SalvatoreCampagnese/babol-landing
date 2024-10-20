@@ -2,11 +2,11 @@
 import { HeaderBox } from "./HeaderBox";
 import iconLogin from "../../assets/icon-login.svg";
 import { Input } from "./Input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../Button";
 import iconApple from "../../assets/icon-apple.svg";
 import iconGoogle from "../../assets/icon-google.svg";
-import { getUserByEmail, signupWithEmail } from "../../utils/user";
+import { getLoggedUserProfile, getUserByEmail, signupWithEmail } from "../../utils/user";
 import { useRouter } from "next/navigation";
 import { supabase } from "../../utils/supabase";
 import { useAppDispatch, useAppSelector } from "../../lib/store";
@@ -51,6 +51,7 @@ export const LoginForm = () => {
     if (error) throw error.message;
     navigation.push('?step=pin');
   }
+
   const handleExistingAccount = async (hasPasswordChanged: boolean, providerType?: 'google' | 'apple') => {
     if (!hasPasswordChanged) {
       if (providerType) {
@@ -69,11 +70,10 @@ export const LoginForm = () => {
   }
 
   const loginWithProvider = async (provider: 'google' | 'apple') => {
-    const redirecTo = provider == 'google'? window.location.origin+"/app/dashboard" : window.location.origin+"/auth/callback"
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options:{
-        redirectTo: window.location.origin+"/app/dashboard"
+        redirectTo: window.location.origin+"/app/login"
       }
     });
     if (error) { console.log(error.message); return error.message; }

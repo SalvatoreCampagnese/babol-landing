@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 export const PinForm = () => {
   const userData = useAppSelector((state) => state.user);
   const [counter, setCounter] = useState(0);
-  const [value, setValue] = useState([]);
+  const [value, setValue] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const navigation = useRouter();
   const _resendOtp = async () => {
@@ -38,7 +38,7 @@ export const PinForm = () => {
   }
   const authenticateUser = async () => {
     setLoading(true);
-    verifyUser(userData.email, value.join(''))
+    verifyUser(userData.email, value)
     .then(({ error }) => {
         if (error) {
             return Promise.reject(error.message);
@@ -74,7 +74,7 @@ export const PinForm = () => {
           <div className="flex items-center gap-4 flex-col">
             <Pin value={value} setValue={setValue} />
             <div className="flex flex-row gap-2 w-full justify-start">
-              <Button text={counter ? counter.toString() : "Resend OTP"} kind="link" onClickFn={_resendOtp} />
+              <Button text={counter ? counter.toString() : "Resend OTP"} customClasses="text-black cursor-pointer" kind="link" onClickFn={_resendOtp} />
             </div>
           </div>
           <Button

@@ -4,17 +4,18 @@ import Logo from "../assets/logo.svg";
 import { Button } from "./Button";
 import { useState } from "react";
 import { ModalDownloadApp } from "./modals/ModalDownloadApp";
+import { useRouter } from "next/navigation";
 export const Header = () => {
-    const [userData, setUserData] = useState<any>(null);
+    const router = useRouter()
     const [showModalDownload, setShowModalDownload] = useState(false);
     return (
         <>
-        {showModalDownload && <ModalDownloadApp hideModal={() => setShowModalDownload(false)}/>}
+        <ModalDownloadApp open={showModalDownload} hideModal={() => setShowModalDownload(false)}/>
 
         <div className="flex h-[40px] flex-row justify-between items-center">
             <h1 className="text-4xl font-bold">
                 <Image src={Logo} alt="Babol" width={108} height={32} className="cursor-pointer" onClick={() => {
-                    window.location.href = "/login";
+                    router.push("/app/login");
                 }}/>
             </h1>
             <Button text="Download the app" onClickFn={() => setShowModalDownload(true)}/>

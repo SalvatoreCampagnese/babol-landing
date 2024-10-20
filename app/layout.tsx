@@ -1,6 +1,11 @@
 import "./globals.css";
 import Script from "next/script";
 import IubendaScripts from "./components/IubendaScripts";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: 'Babol Web dashboard',
+  description: 'Babol is the application that allow you to have all the informations about your event in a single place!',
+}
 export default function RootLayout({
   children,
 }: Readonly<{

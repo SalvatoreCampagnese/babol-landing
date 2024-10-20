@@ -6,36 +6,37 @@ import { supabase } from "../utils/supabase";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ReduxProvider from "../StoreProvider";
+import { getLoggedUserProfile } from "../utils/user";
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const router= useRouter()
-  useEffect(() => {
-    const fetchSession = async () => {
-
-      // If signed in, redirect to dashboard
-      const { data } = await supabase.auth.getSession();
-      if (data.session) {
+  useEffect(()=>{
+    const getLoggedData = async () => {
+      const {data:loggedUser} = await getLoggedUserProfile();
+      console.log('loggedUser',loggedUser)
+      if(loggedUser?.id && !loggedUser?.initialized){
+        router.replace('/app/login?step=signup');
+      }else if(loggedUser?.id){
         router.replace('/app/dashboard')
       }
     }
-    fetchSession();
-  },[]);
+    getLoggedData();
+  },[])
   return (
-    <html lang="en">
-      <head></head>
+    <>
       <ReduxProvider>
-      <body className="relative bg-app-gradient min-h-screen">
+      <div className="relative bg-app-gradient min-h-screen">
         <div className="p-[24px] flex flex-col gap-[24px] overflow-x-hidden" id="wrapper">
           <Header />
           <IubendaScripts />
           {children}
         </div>
         <Footer />
-      </body>
+      </div>
       </ReduxProvider>
-    </html>
+    </>
   );
 }

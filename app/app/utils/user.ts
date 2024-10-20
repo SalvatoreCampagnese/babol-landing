@@ -40,7 +40,13 @@ export const logout = async () => {
 export const updateProfile = async (profile: any) => {
   // password change 
   if(profile.password) {
-      await supabase.auth.updateUser({ password: profile.password });
+      await supabase.auth.updateUser({password:profile?.password});
   }
-  return await supabase.from("profiles").upsert(profile);
+  return await supabase.from("profiles").upsert({
+    id:profile?.id,
+    full_name:profile?.full_name,
+    birth_date: new Date(profile?.birth_date)
+  }, {
+    onConflict: 'id'
+  });
 }

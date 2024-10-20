@@ -8,7 +8,7 @@ import { LabelAndSublabel } from "./InputWithLabel";
 import ImageInput from "./ImageInput";
 import { useAppDispatch, useAppSelector } from "../../lib/store";
 import { setUserData } from "../../lib/signupSlice";
-import { updateProfile } from "../../utils/user";
+import { getLoggedUserProfile, updateProfile } from "../../utils/user";
 import { supabase } from "../../utils/supabase";
 import { decode } from "base64-arraybuffer";
 import { useRouter } from "next/navigation";
@@ -35,10 +35,20 @@ export const SignupForm = () => {
   }
 
   const signupWithEmail = async (email: string) => {
+    const {data:loggedUser} = await getLoggedUserProfile();
     // upload image into bucket
     try{
       await uploadPhoto();
-      await updateProfile(userData.password);
+      const {data, error} = await updateProfile({
+          id: loggedUser?.id,
+          password:userData?.password,
+          full_name: userData?.firstName+" "+userData?.lastName,
+          birth_date: `${userData.birthMonth}-${userData?.birthDay}-${userData?.birthYear}`
+      });
+      if(error){
+        toast.error('Error occurred, please retry.')
+        return;
+      }
     }catch(e){
       console.log(e);
       return;
