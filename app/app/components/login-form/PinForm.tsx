@@ -3,12 +3,13 @@ import { HeaderBox } from "./HeaderBox";
 import iconLogin from "../../assets/icon-login.svg";
 import { Button } from "../Button";
 import Pin from "./PinInput";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "../../utils/supabase";
 import { loginWithEmail, verifyUser } from "../../utils/user";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "../../lib/store";
-import { toast } from "react-toastify";
+import { Bounce, toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export const PinForm = () => {
   const userData = useAppSelector((state) => state.user);
   const [counter, setCounter] = useState(0);
@@ -37,8 +38,10 @@ export const PinForm = () => {
     }
   }
   const authenticateUser = async () => {
+    
+    const {data:loggedUser, error:loggedError} = await supabase?.auth?.getUser();
     setLoading(true);
-    verifyUser(userData.email, value)
+    verifyUser(loggedUser.user?.email || "", value)
     .then(({ error }) => {
         if (error) {
             return Promise.reject(error.message);
@@ -52,16 +55,38 @@ export const PinForm = () => {
         navigation.push('?step=signup');
     })
     .catch((error) => {
-      toast.error(error.message);
+      toast.error("An error occurred, verify the OTP and retry again.");
     })
     .finally(() => {
         setLoading(false);
     });
 
 }
+useEffect(()=>{
+  const getLogg = async () =>{
+    const {data:loggedUser, error:loggedError} = await supabase?.auth?.getUser();
+    if(loggedError || !loggedUser?.user?.email){
+      navigation.replace('/app/login')
+    }
+  }
+  getLogg();
+},[])
   return (
     <>
       <div className="w-full h-full flex flex-col gap-[48px] justify-center">
+        <ToastContainer 
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+          transition={Bounce}
+        />
         <HeaderBox
           icon={iconLogin}
           title={`Confirm your identity!

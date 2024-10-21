@@ -35,6 +35,24 @@ export const SignupForm = () => {
   }
 
   const signupWithEmail = async (email: string) => {
+
+    if(!userData?.firstName){
+      toast.error('Insert your first name');
+      return;
+    }
+    if(!userData?.lastName){
+      toast.error('Insert your last name');
+      return;
+    }
+    if(!userData?.birthDay || !userData?.birthMonth || !userData?.birthYear){
+      toast.error('Insert your birthday correctly');
+      return;
+    }
+    if(!userData?.password){
+      toast.error('Insert a password');
+      return;
+    }
+
     const {data:loggedUser} = await getLoggedUserProfile();
     // upload image into bucket
     try{
