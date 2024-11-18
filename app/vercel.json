@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/app/dashboard/(.*)",
+      "destination": "babol-landing-4z0l2s8qa-salvatorecampagneses-projects.vercel.app/$1",
+      "permanent": true
+    }
+  ]
+}
