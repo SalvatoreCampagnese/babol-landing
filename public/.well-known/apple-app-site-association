@@ -4,14 +4,21 @@
     "details": [
       {
         "appID": "FN4NXB4BZ7.com.babol.app",
-        "paths": ["/app/*"]
+        "paths": [
+          "/*",
+          "/"
+        ]
       }
     ]
   },
   "activitycontinuation": {
-    "apps": ["FN4NXB4BZ7.com.babol.app"]
+    "apps": [
+      "FN4NXB4BZ7.com.babol.app"
+    ]
   },
   "webcredentials": {
-    "apps": ["FN4NXB4BZ7.com.babol.app"]
+    "apps": [
+      "FN4NXB4BZ7.com.babol.app"
+    ]
   }
 }
