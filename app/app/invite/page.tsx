@@ -2,6 +2,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { supabase } from "../utils/supabase";
+import { getLoggedUserProfile } from "../utils/user";
 function InvitePage() {
   // http://babol.app/app/invite?c=te6d8l2bx9
   const router = useRouter();
@@ -10,6 +11,11 @@ function InvitePage() {
 
   useEffect(() => {
     const fetchBabolByInvite = async () => {
+      const loggedUser = await getLoggedUserProfile();
+      if (!loggedUser) {
+        router.replace("https://www.babol.app/app/login");
+        return;
+      }
       const { data: babol, error: errorBabol } = await supabase
         .from("babols")
         .select("id")
