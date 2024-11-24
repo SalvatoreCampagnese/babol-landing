@@ -11,8 +11,8 @@ function InvitePage() {
 
   useEffect(() => {
     const fetchBabolByInvite = async () => {
-      const loggedUser = await getLoggedUserProfile();
-      if (!loggedUser) {
+      const userData = await supabase.auth.getSession();
+      if (!userData?.data?.session) {
         router.replace("https://www.babol.app/app/login");
         return;
       }
