@@ -1,12 +1,12 @@
 [
-    {
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target": {
-        "namespace": "android_app",
-        "package_name": "com.babol.app",
-        "sha256_cert_fingerprints": [
-          "FF:9C:E0:98:C1:D0:7D:DC:78:98:3B:39:E8:A7:47:E9:64:A2:EC:41"
-        ]
-      }
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.babol.app",
+      "sha256_cert_fingerprints": [
+        "E1:6F:91:26:BA:9E:3D:27:FA:9F:51:9F:C0:38:CE:32:54:E4:7E:E0:6F:5E:6D:CD:18:0C:33:33:C1:B0:75:F5"
+      ]
     }
-  ]
+  }
+]
