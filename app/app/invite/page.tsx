@@ -36,7 +36,7 @@ function InvitePage() {
   }, [invite_code]);
   return (
     <>
-      <div className="fixed w-full h-fit rounded-md flex flex-col bg-white text-black p-4 md:p-16 text-center overflow-y-scroll relative">
+      <div className="fixed w-full h-fit rounded-md flex flex-col bg-white text-black p-4 md:p-16 text-center overflow-y-scroll relative text-black">
         <h1 className="text-3xl font-satoshiBold text-black bold">
           Join Babol
         </h1>

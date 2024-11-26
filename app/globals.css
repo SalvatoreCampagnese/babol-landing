@@ -24,7 +24,6 @@
 
 * {
   @apply font-satoshi;
-  color: white;
 }
 
 body {
@@ -115,7 +114,7 @@ button {
     @apply bg-surfaceAccentExtraLight rounded-sm text-white px-md py-sm flex justify-center items-center w-full h-lg text-lg font-satoshiBold;
   }
   &.link {
-    @apply bg-transparent rounded-sm py-sm flex justify-center items-center font-bold underline h-lg text-lg font-satoshiBold
+    @apply bg-transparent rounded-sm py-sm flex justify-center items-center font-bold underline h-lg text-lg font-satoshiBold;
   }
 }
 
@@ -145,7 +144,7 @@ input {
   }
 }
 
-a{
+a {
   @apply font-satoshi;
   @apply text-infoMain;
 }
@@ -170,10 +169,10 @@ a{
   transition: opacity 100ms ease-in-out;
 }
 
-.ReactModal__Overlay--after-open{
+.ReactModal__Overlay--after-open {
   opacity: 1;
 }
 
-.ReactModal__Overlay--before-close{
+.ReactModal__Overlay--before-close {
   opacity: 0;
 }
